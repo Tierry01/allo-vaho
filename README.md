@@ -1,4 +1,4 @@
-# AlloVaho 🇨🇲
+# AlloVaho
 
 **AlloVaho** est une plateforme de communication et de mise en relation conçue pour faciliter l’accès aux contacts et permettre aux utilisateurs de communiquer simplement à travers le Cameroun.
 
