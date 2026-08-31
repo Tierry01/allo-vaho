@@ -23,4 +23,3 @@ AlloVaho est développé par **ITE EXPERT SARL**, une entreprise technologique b
 
 ---
 
-**AlloVaho — Connecter les Camerounais, simplement. 🇨🇲**
