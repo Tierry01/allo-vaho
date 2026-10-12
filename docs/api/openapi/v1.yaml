@@ -1,0 +1,75 @@
+openapi: 3.1.0
+info:
+  title: Allo Vaho API
+  version: 1.0.0
+  summary: API REST consommée par l'application mobile Allo Vaho.
+  description: |
+    Contrat de référence de l'API `/api/v1`.
+
+    Ce fichier est écrit à la main et versionné : il fait foi pour le backend
+    Laravel comme pour l'application Flutter. Toute évolution de l'API commence
+    par une modification de ce fichier.
+  license:
+    name: Propriétaire
+    identifier: LicenseRef-Proprietary
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Développement local
+tags:
+  - name: Technique
+    description: Points d'entrée techniques, sans donnée métier.
+security: []
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      tags:
+        - Technique
+      summary: Vérifier que l'API répond
+      description: |
+        Indique que l'API est joignable. Aucune authentification requise.
+        La réponse ne contient aucune information interne.
+      security: []
+      responses:
+        '200':
+          description: L'API répond.
+          headers:
+            X-RateLimit-Limit:
+              description: Nombre de requêtes autorisées par minute.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Nombre de requêtes restantes dans la minute en cours.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+              example:
+                status: ok
+                version: v1
+                timestamp: '2026-10-12T08:00:00Z'
+components:
+  schemas:
+    Health:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - version
+        - timestamp
+      properties:
+        status:
+          type: string
+          enum:
+            - ok
+        version:
+          type: string
+          description: Version de l'API.
+          enum:
+            - v1
+        timestamp:
+          type: string
+          format: date-time
+          description: Heure du serveur, en UTC.
