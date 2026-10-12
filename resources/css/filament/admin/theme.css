@@ -1,0 +1,518 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+@import '../../admin/tokens.css';
+@import '../../admin/components.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+@source '../../../../resources/views/components/admin/**/*';
+
+/*
+ * Allo Vaho — thème du panneau d'administration.
+ *
+ * Habille les composants Filament avec les tokens --av-* des maquettes
+ * validées. Les valeurs viennent toutes de tokens.css : ne pas écrire de
+ * couleur en dur ici, pour que les thèmes clair et sombre restent alignés.
+ */
+
+/* ---------- Base ---------- */
+.fi-body {
+    --sidebar-width: var(--av-sidebar-w);
+    --collapsed-sidebar-width: var(--av-sidebar-w-collapsed);
+    --topbar-height: var(--av-topbar-h);
+
+    background: var(--av-bg);
+    color: var(--av-text);
+    font-family: var(--av-font-body);
+}
+
+/*
+ * Focus clavier — un seul indicateur pour tous les composants, Filament et av-*.
+ * Halo de 3 px des maquettes (--av-focus-ring) + liseré de 2 px en --av-link :
+ * le halo seul n'atteint pas 3:1 de contraste (voir docs/decisions/0008).
+ */
+.fi-body :focus-visible,
+.fi-body .fi-input-wrp:has(:focus-visible) {
+    outline: 2px solid var(--av-link);
+    outline-offset: 3px;
+    box-shadow: var(--av-focus-ring);
+}
+
+/* Le champ porte l'indicateur sur son cadre, pas sur l'élément interne. */
+.fi-body .fi-input-wrp :focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Les composants qui ont déjà une ombre la conservent sous le halo. */
+.fi-body .fi-btn:not(.fi-color):not(.fi-outlined):not(.fi-link):focus-visible {
+    box-shadow:
+        inset 0 0 0 1px var(--av-border-strong),
+        var(--av-focus-ring);
+}
+
+.fi-body .av-toggle input:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+
+.fi-body .av-toggle input:focus-visible + .av-toggle__track {
+    outline: 2px solid var(--av-link);
+    outline-offset: 3px;
+}
+
+.fi-header-heading,
+.fi-simple-header-heading,
+.fi-section-header-heading,
+.fi-modal-heading,
+.fi-wi-stats-overview-stat-value {
+    font-family: var(--av-font-head);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--av-text);
+}
+
+.fi-header-heading {
+    font-size: var(--av-fs-h1);
+    line-height: 1.2;
+}
+
+.fi-section-header-heading {
+    font-size: var(--av-fs-h3);
+    line-height: 1.35;
+}
+
+.fi-header-subheading,
+.fi-simple-header-subheading,
+.fi-section-header-description {
+    color: var(--av-text-muted);
+}
+
+.fi-link {
+    color: var(--av-link);
+}
+
+/* ---------- Topbar ---------- */
+.fi-topbar {
+    background: var(--av-topbar-bg);
+    border-bottom: 1px solid var(--av-border);
+    box-shadow: none;
+    --tw-ring-shadow: 0 0 #0000;
+}
+
+/* La zone de marque prolonge la sidebar, comme dans la maquette. */
+@media (min-width: 1024px) {
+    .fi-topbar {
+        padding-inline-start: 0;
+    }
+
+    .fi-topbar-start {
+        align-self: stretch;
+        width: var(--av-sidebar-w);
+        margin-inline-end: var(--av-s4);
+        padding-inline: var(--av-s4) var(--av-s3);
+        background: var(--av-sb-bg);
+        border-bottom: 1px solid var(--av-sb-border);
+    }
+
+    .fi-topbar-start .fi-logo {
+        margin-inline-start: 0;
+    }
+
+    .fi-topbar-start .fi-icon-btn {
+        margin-inline-start: auto;
+        color: var(--av-sb-muted);
+    }
+
+    .fi-topbar-start .fi-icon-btn:hover {
+        background: var(--av-sb-hover);
+        color: var(--av-sb-text);
+    }
+
+    .fi-body.fi-body-has-sidebar-collapsible-on-desktop:has(.fi-sidebar:not(.fi-sidebar-open)) .fi-topbar-start {
+        width: var(--av-sidebar-w-collapsed);
+        padding-inline: 0;
+        justify-content: center;
+    }
+
+    .fi-body.fi-body-has-sidebar-collapsible-on-desktop:has(.fi-sidebar:not(.fi-sidebar-open)) .fi-topbar-start .fi-logo {
+        display: none;
+    }
+
+    .fi-body.fi-body-has-sidebar-collapsible-on-desktop:has(.fi-sidebar:not(.fi-sidebar-open)) .fi-topbar-start .fi-icon-btn {
+        margin-inline: 0;
+    }
+}
+
+.fi-topbar-start .fi-logo,
+.fi-sidebar-header .fi-logo {
+    color: var(--av-sb-text);
+    font-family: var(--av-font-head);
+    font-weight: 800;
+}
+
+/* Le logo est affiché en blanc sur le bleu profond, comme dans la maquette. */
+.fi-topbar-start img.fi-logo,
+.fi-sidebar-header img.fi-logo {
+    height: 30px;
+    filter: brightness(0) invert(1);
+}
+
+/* ---------- Sidebar (bleu profond, distinct du contenu) ---------- */
+.fi-body .fi-sidebar,
+.fi-body .fi-sidebar.fi-sidebar-open {
+    background: var(--av-sb-bg);
+    color: var(--av-sb-text);
+    border-inline-end: 1px solid var(--av-sb-border);
+}
+
+/* Sur le bleu profond, la maquette utilise un anneau plein de 2 px (contraste 7:1). */
+.fi-body .fi-sidebar :focus-visible,
+.fi-body .fi-topbar-start :focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--av-sb-accent);
+}
+
+.fi-body .fi-sidebar-header {
+    background: var(--av-sb-bg);
+    border-bottom: 1px solid var(--av-sb-border);
+    box-shadow: none;
+    --tw-ring-shadow: 0 0 #0000;
+}
+
+.fi-sidebar-header .fi-icon-btn {
+    color: var(--av-sb-muted);
+}
+
+.fi-sidebar-nav {
+    padding: var(--av-s3) var(--av-s2) var(--av-s4);
+    scrollbar-width: thin;
+    scrollbar-color: var(--av-sb-border-strong) transparent;
+}
+
+.fi-sidebar-nav-groups {
+    margin-inline: 0;
+    gap: var(--av-s3);
+}
+
+.fi-sidebar-group-label {
+    color: var(--av-sb-subtle);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.fi-sidebar-group-btn .fi-icon,
+.fi-sidebar-group-collapse-btn {
+    color: var(--av-sb-subtle);
+}
+
+.fi-sidebar-item-btn {
+    min-height: 36px;
+    gap: 10px;
+    padding: 6px 10px;
+    border-radius: var(--av-r-sm);
+    transition:
+        background var(--av-dur) var(--av-ease),
+        color var(--av-dur);
+}
+
+.fi-sidebar-item-btn > .fi-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--av-sb-muted);
+}
+
+.fi-sidebar-item-label {
+    color: var(--av-sb-text);
+    font-size: var(--av-fs-body);
+    font-weight: 500;
+}
+
+.fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn:hover,
+.fi-sidebar-item.fi-sidebar-item-has-url > .fi-sidebar-item-btn:focus-visible,
+.fi-sidebar-group-dropdown-trigger-btn:hover {
+    background: var(--av-sb-hover);
+}
+
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn {
+    background: var(--av-sb-active-bg);
+}
+
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-sidebar-item-label {
+    color: #fff;
+    font-weight: 600;
+}
+
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-icon {
+    color: var(--av-sb-accent);
+}
+
+.fi-sidebar-item-grouped-border-part,
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-sidebar-item-grouped-border > .fi-sidebar-item-grouped-border-part {
+    background: var(--av-sb-border-strong);
+}
+
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-sidebar-item-grouped-border > .fi-sidebar-item-grouped-border-part {
+    background: var(--av-sb-accent);
+}
+
+.fi-sidebar-footer {
+    border-top: 1px solid var(--av-sb-border);
+    padding: var(--av-s3);
+}
+
+/* ---------- Page ---------- */
+.fi-main {
+    max-width: var(--av-page-max);
+}
+
+.fi-breadcrumbs-item-label {
+    color: var(--av-text-muted);
+    font-size: var(--av-fs-sm);
+}
+
+/* ---------- Boutons ---------- */
+.fi-btn {
+    min-height: 36px;
+    border-radius: var(--av-r-sm);
+    font-size: var(--av-fs-sm);
+    font-weight: 600;
+    transition:
+        background var(--av-dur) var(--av-ease),
+        border-color var(--av-dur),
+        box-shadow var(--av-dur);
+}
+
+.fi-btn.fi-size-xs,
+.fi-btn.fi-size-sm {
+    min-height: 30px;
+    font-size: var(--av-fs-xs);
+}
+
+.fi-btn:not(.fi-disabled):not([disabled]):active {
+    transform: translateY(1px);
+}
+
+.fi-btn.fi-color-primary:not(.fi-outlined):not(.fi-link) {
+    background: var(--av-blue-dark);
+    color: #fff;
+}
+
+.fi-btn.fi-color-primary:not(.fi-outlined):not(.fi-link):not(.fi-disabled):not([disabled]):hover {
+    background: var(--av-blue-darker);
+}
+
+.fi-btn.fi-color-danger:not(.fi-outlined):not(.fi-link) {
+    background: var(--av-danger-solid);
+    color: #fff;
+}
+
+.fi-btn:not(.fi-color):not(.fi-outlined):not(.fi-link) {
+    background: var(--av-surface);
+    color: var(--av-text);
+    box-shadow:
+        inset 0 0 0 1px var(--av-border-strong),
+        var(--av-shadow-sm);
+}
+
+.fi-btn:not(.fi-color):not(.fi-outlined):not(.fi-link):not(.fi-disabled):not([disabled]):hover {
+    background: var(--av-hover);
+}
+
+.fi-icon-btn {
+    border-radius: var(--av-r-sm);
+}
+
+/* ---------- Champs ---------- */
+.fi-fo-field-label-content {
+    font-size: var(--av-fs-sm);
+    font-weight: 600;
+    color: var(--av-text);
+}
+
+.fi-input-wrp {
+    border-radius: var(--av-r-sm);
+    background: var(--av-surface);
+    box-shadow: inset 0 0 0 1px var(--av-border-strong);
+    --tw-ring-shadow: 0 0 #0000;
+    transition:
+        border-color var(--av-dur),
+        box-shadow var(--av-dur);
+}
+
+.fi-input-wrp:not(.fi-disabled):hover {
+    box-shadow: inset 0 0 0 1px var(--av-border-hover);
+}
+
+.fi-body .fi-input-wrp:not(.fi-disabled):has(:focus-visible) {
+    box-shadow:
+        inset 0 0 0 1px var(--av-blue),
+        var(--av-focus-ring);
+}
+
+.fi-input-wrp.fi-invalid {
+    box-shadow: inset 0 0 0 1px var(--av-danger);
+}
+
+.fi-input-wrp.fi-disabled {
+    background: var(--av-surface-3);
+}
+
+.fi-input,
+.fi-select-input {
+    font-size: var(--av-fs-sm);
+    color: var(--av-text);
+}
+
+.fi-input::placeholder {
+    color: var(--av-text-subtle);
+}
+
+.fi-fo-field-wrp-helper-text,
+.fi-sc-text {
+    color: var(--av-text-muted);
+}
+
+.fi-checkbox-input,
+.fi-radio-input {
+    accent-color: var(--av-link);
+}
+
+/* ---------- Cartes ---------- */
+.fi-section:not(.fi-section-not-contained),
+.fi-ta-ctn,
+.fi-wi-stats-overview-stat,
+.fi-simple-main {
+    background: var(--av-surface);
+    border: 1px solid var(--av-border);
+    border-radius: var(--av-r-lg);
+    box-shadow: var(--av-shadow-sm);
+    --tw-ring-shadow: 0 0 #0000;
+}
+
+.fi-section-header {
+    border-color: var(--av-border);
+}
+
+/* ---------- Badges ---------- */
+.fi-badge {
+    min-height: 22px;
+    padding: 0 8px;
+    border-radius: var(--av-r-pill);
+    font-size: 12px;
+    font-weight: 600;
+    --tw-ring-shadow: 0 0 #0000;
+}
+
+.fi-badge.fi-color-success {
+    background: var(--av-success-bg);
+    color: var(--av-success);
+}
+
+.fi-badge.fi-color-warning {
+    background: var(--av-warning-bg);
+    color: var(--av-warning);
+}
+
+.fi-badge.fi-color-danger {
+    background: var(--av-danger-bg);
+    color: var(--av-danger);
+}
+
+.fi-badge.fi-color-info,
+.fi-badge.fi-color-primary {
+    background: var(--av-info-bg);
+    color: var(--av-info);
+}
+
+.fi-badge:not(.fi-color) {
+    background: var(--av-neutral-bg);
+    color: var(--av-neutral);
+}
+
+/* ---------- Tableaux ---------- */
+.fi-ta-table {
+    font-size: var(--av-fs-sm);
+    font-variant-numeric: tabular-nums;
+}
+
+.fi-ta-header-cell {
+    background: var(--av-surface-2);
+    color: var(--av-text-muted);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.fi-ta-header-cell .fi-ta-header-cell-sort-btn,
+.fi-ta-header-cell-label {
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.fi-ta-row {
+    border-color: var(--av-border);
+    transition: background var(--av-dur);
+}
+
+.fi-ta-table > tbody > .fi-ta-row:hover {
+    background: var(--av-surface-2);
+}
+
+.fi-ta-table > tbody > .fi-ta-row.fi-selected {
+    background: var(--av-blue-50);
+}
+
+.fi-ta-header,
+.fi-ta-header-toolbar,
+.fi-ta-content-ctn,
+.fi-pagination {
+    border-color: var(--av-border);
+}
+
+/* ---------- Menus, modales, notifications ---------- */
+.fi-dropdown-panel {
+    background: var(--av-surface);
+    border: 1px solid var(--av-border);
+    border-radius: var(--av-r);
+    box-shadow: var(--av-shadow-md);
+    --tw-ring-shadow: 0 0 #0000;
+}
+
+.fi-dropdown-list-item {
+    border-radius: var(--av-r-sm);
+    font-size: var(--av-fs-sm);
+}
+
+.fi-dropdown-list-item:hover,
+.fi-dropdown-list-item:focus-visible {
+    background: var(--av-hover);
+}
+
+.fi-modal-window {
+    background: var(--av-surface);
+    border-radius: var(--av-r-lg);
+    box-shadow: var(--av-shadow-lg);
+}
+
+.fi-modal-close-overlay {
+    background: var(--av-overlay);
+}
+
+/* ---------- Écran d'accès (mise en page simple) ---------- */
+.fi-simple-layout {
+    background: var(--av-bg);
+}
+
+/* ---------- Mouvement réduit ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .fi-body *,
+    .fi-body *::before,
+    .fi-body *::after {
+        animation-duration: 1ms !important;
+        transition-duration: 1ms !important;
+    }
+}
