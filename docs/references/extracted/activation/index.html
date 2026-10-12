@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Activer votre compte · Back-office Allo Vaho</title>
+  <meta name="robots" content="noindex">
+  <script>/* Thème appliqué avant le rendu (même clé que le dashboard) */try{var t=JSON.parse(localStorage.getItem('av.theme'));if(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)t='dark';document.documentElement.dataset.theme=t||'light';}catch(e){document.documentElement.dataset.theme='light';}</script>
+  <link rel="icon" href="assets/9e39d6c3-b9a3-4d34-ba42-c6dbcf18233d.png">
+  <!-- CDN : Google Fonts (Nunito, Noto Sans) — seule dépendance externe -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <style>/* cyrillic-ext */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/b77ed6b6-4287-42db-9ed7-34ec4b19c90c.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/393ca95a-64e9-480c-bf9c-f035c8d86c4f.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* devanagari */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/6ddee9a2-52f6-4f8b-a84f-6ddd5b2c8fa3.woff2") format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/c55b4c8b-fe5d-4cce-b40b-affafe74028e.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/9ebb07e1-0dce-40ca-807a-5a88449c2d3b.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/b753ab5e-64d0-4abd-ad40-cca558a7d5af.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/3a99dbd6-7f91-4668-abca-55454cda58d4.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/bb4976d1-d3f6-453c-9ac1-773f10c1f8c2.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/b77ed6b6-4287-42db-9ed7-34ec4b19c90c.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/393ca95a-64e9-480c-bf9c-f035c8d86c4f.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* devanagari */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/6ddee9a2-52f6-4f8b-a84f-6ddd5b2c8fa3.woff2") format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/c55b4c8b-fe5d-4cce-b40b-affafe74028e.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/9ebb07e1-0dce-40ca-807a-5a88449c2d3b.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/b753ab5e-64d0-4abd-ad40-cca558a7d5af.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/3a99dbd6-7f91-4668-abca-55454cda58d4.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/bb4976d1-d3f6-453c-9ac1-773f10c1f8c2.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/b77ed6b6-4287-42db-9ed7-34ec4b19c90c.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/393ca95a-64e9-480c-bf9c-f035c8d86c4f.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* devanagari */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/6ddee9a2-52f6-4f8b-a84f-6ddd5b2c8fa3.woff2") format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/c55b4c8b-fe5d-4cce-b40b-affafe74028e.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/9ebb07e1-0dce-40ca-807a-5a88449c2d3b.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/b753ab5e-64d0-4abd-ad40-cca558a7d5af.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/3a99dbd6-7f91-4668-abca-55454cda58d4.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/bb4976d1-d3f6-453c-9ac1-773f10c1f8c2.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/b77ed6b6-4287-42db-9ed7-34ec4b19c90c.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/393ca95a-64e9-480c-bf9c-f035c8d86c4f.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* devanagari */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/6ddee9a2-52f6-4f8b-a84f-6ddd5b2c8fa3.woff2") format('woff2');
+  unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/c55b4c8b-fe5d-4cce-b40b-affafe74028e.woff2") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/9ebb07e1-0dce-40ca-807a-5a88449c2d3b.woff2") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/b753ab5e-64d0-4abd-ad40-cca558a7d5af.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/3a99dbd6-7f91-4668-abca-55454cda58d4.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("assets/bb4976d1-d3f6-453c-9ac1-773f10c1f8c2.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/1f5ff1fc-4370-4aa1-b08c-58dd44c03757.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/03328227-ec04-4855-bb82-b49f2d7bea48.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/2b2ee474-7467-4314-9f16-d1001cad5f13.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/486d6c90-fee4-4c68-b3d4-5f8d3e6d31d6.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/11852b6f-b3de-4645-9810-62bd9aa8ab67.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("assets/1f5ff1fc-4370-4aa1-b08c-58dd44c03757.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("assets/03328227-ec04-4855-bb82-b49f2d7bea48.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("assets/2b2ee474-7467-4314-9f16-d1001cad5f13.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("assets/486d6c90-fee4-4c68-b3d4-5f8d3e6d31d6.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("assets/11852b6f-b3de-4645-9810-62bd9aa8ab67.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+  <style>/* ==========================================================================
+   Allo Vaho Back-office — Tokens, reset, typographie
+   → Laravel : resources/css/admin/tokens.css
+   ========================================================================== */
+
+:root {
+  /* Marque */
+  --av-blue: #009FE3;
+  --av-blue-dark: #0077B6;
+  --av-blue-darker: #005A8C;
+  --av-blue-50: #EAF6FC;
+  --av-blue-100: #D2ECF8;
+  --av-ink: #1F1C18;
+  --av-sand: #FAF7F2;
+  --av-clay: #6E665A;
+  --av-sun: #F2A93B;
+  --av-sun-50: #FDF3E1;
+
+  /* Surfaces & texte */
+  --av-bg: #F4F1EB;
+  --av-surface: #FFFFFF;
+  --av-surface-2: #FAF7F2;
+  --av-surface-3: #F2EEE7;
+  --av-border: #E6E0D6;
+  --av-border-strong: #D3CBBE;
+  --av-text: #1F1C18;
+  --av-text-muted: #6E665A;
+  --av-text-subtle: #807869;
+  --av-hover: #F3EFE8;
+  --av-active: #EAF6FC;
+  --av-border-hover: #BDB3A4;
+  --av-focus-ring: 0 0 0 3px rgba(0, 159, 227, .35);
+  --av-overlay: rgba(31, 28, 24, .42);
+  --av-topbar-bg: #FFFFFF;
+  --av-link: #0077B6;
+  --av-link-strong: #005A8C;
+  --av-inverse-bg: #1F1C18;
+  --av-skeleton-hi: #F8F5F0;
+  --av-code-bg: #1F1C18;
+  --av-code-bar: #2A2621;
+  --av-code-border: #2D2924;
+  --av-sun-ink: #7A4A00;
+
+  /* Sidebar (bleu profond dérivé de #0077B6) */
+  --av-sb-bg: #073A5A;
+  --av-sb-border: rgba(255, 255, 255, .09);
+  --av-sb-border-strong: rgba(255, 255, 255, .18);
+  --av-sb-text: #E6F3FB;
+  --av-sb-muted: #A6CBE2;
+  --av-sb-subtle: #86B1CC;
+  --av-sb-hover: rgba(255, 255, 255, .08);
+  --av-sb-active-bg: rgba(0, 159, 227, .34);
+  --av-sb-accent: #6ED2FA;
+  --av-sb-count-bg: rgba(255, 255, 255, .14);
+  --av-sb-ok-bg: rgba(34, 160, 96, .22);
+  --av-sb-ok-fg: #9BE8BC;
+
+  /* Statuts (sobres, texte AA sur fond teinté) */
+  --av-success: #1C7A4B;
+  --av-success-bg: #E4F3EA;
+  --av-success-dot: #22A060;
+  --av-success-border: #BFE3CD;
+  --av-success-ink: #135535;
+  --av-warning: #9A5B00;
+  --av-warning-bg: #FDF0D8;
+  --av-warning-dot: #F2A93B;
+  --av-warning-border: #F1D3A1;
+  --av-warning-ink: #6B3F00;
+  --av-danger: #B8342B;
+  --av-danger-bg: #FBE8E5;
+  --av-danger-dot: #E0483D;
+  --av-danger-solid: #B8342B;
+  --av-danger-border: #F2C6C0;
+  --av-danger-ink: #7D211B;
+  --av-danger-bg-hover: #F7D9D4;
+  --av-info: #0077B6;
+  --av-info-bg: #EAF6FC;
+  --av-info-dot: #009FE3;
+  --av-info-border: #D2ECF8;
+  --av-info-ink: #005A8C;
+  --av-neutral: #5E574C;
+  --av-neutral-bg: #EFEBE4;
+  --av-neutral-dot: #A79F92;
+
+  /* Graphiques */
+  --av-chart-1: #009FE3;
+  --av-chart-2: #E0962A;
+  --av-chart-3: #6E665A;
+  --av-chart-grid: #EEE9E1;
+
+  /* Typographie */
+  --av-font-head: "Nunito", "Noto Sans", system-ui, sans-serif;
+  --av-font-body: "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --av-font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  --av-fs-h1: 1.625rem;   /* 26 */
+  --av-fs-h2: 1.125rem;   /* 18 */
+  --av-fs-h3: .9375rem;   /* 15 */
+  --av-fs-body: .875rem;  /* 14 */
+  --av-fs-sm: .8125rem;   /* 13 */
+  --av-fs-xs: .75rem;     /* 12 */
+  --av-fs-kpi: 1.625rem;
+
+  /* Espacement (base 4) */
+  --av-s1: 4px; --av-s2: 8px; --av-s3: 12px; --av-s4: 16px;
+  --av-s5: 20px; --av-s6: 24px; --av-s8: 32px; --av-s10: 40px;
+
+  /* Rayons & ombres */
+  --av-r-sm: 6px;
+  --av-r: 10px;
+  --av-r-lg: 14px;
+  --av-r-pill: 999px;
+  --av-shadow-sm: 0 1px 2px rgba(31, 28, 24, .05);
+  --av-shadow-md: 0 6px 20px -4px rgba(31, 28, 24, .14), 0 2px 6px rgba(31, 28, 24, .06);
+  --av-shadow-lg: 0 24px 60px -12px rgba(31, 28, 24, .28);
+
+  /* Layout */
+  --av-sidebar-w: 264px;
+  --av-sidebar-w-collapsed: 68px;
+  --av-topbar-h: 60px;
+  --av-page-max: 1560px;
+
+  /* Mouvement */
+  --av-ease: cubic-bezier(.2, .7, .3, 1);
+  --av-dur: 180ms;
+  --av-dur-slow: 240ms;
+  color-scheme: light;
+}
+
+/* ---------- Thème sombre : profondeurs de surfaces chaudes (ink/sand), pas de noir pur ---------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --av-bg: #141210;
+  --av-surface: #1D1A17;
+  --av-surface-2: #23201C;
+  --av-surface-3: #2C2823;
+  --av-border: #35312B;
+  --av-border-strong: #47423B;
+  --av-border-hover: #5C564D;
+  --av-text: #EFE9DF;
+  --av-text-muted: #B0A799;
+  --av-text-subtle: #928A7D;
+  --av-hover: #2A2622;
+  --av-active: rgba(0, 159, 227, .14);
+  --av-focus-ring: 0 0 0 3px rgba(0, 159, 227, .5);
+  --av-overlay: rgba(0, 0, 0, .6);
+  --av-topbar-bg: #1A1815;
+  --av-link: #4FC4F5;
+  --av-link-strong: #86D6F8;
+  --av-inverse-bg: #3A352F;
+  --av-skeleton-hi: #38332D;
+  --av-code-bg: #11100E;
+  --av-code-bar: #1B1916;
+  --av-code-border: #35312B;
+  --av-blue-50: rgba(0, 159, 227, .14);
+  --av-blue-100: rgba(0, 159, 227, .26);
+  --av-sun-50: rgba(242, 169, 59, .15);
+  --av-sun-ink: #F6C77E;
+
+  --av-success: #74D6A0;
+  --av-success-bg: rgba(34, 160, 96, .16);
+  --av-success-border: rgba(34, 160, 96, .38);
+  --av-success-ink: #A9E7C3;
+  --av-warning: #F6C170;
+  --av-warning-bg: rgba(242, 169, 59, .14);
+  --av-warning-border: rgba(242, 169, 59, .36);
+  --av-warning-ink: #F9D59C;
+  --av-danger: #FF938A;
+  --av-danger-bg: rgba(224, 72, 61, .17);
+  --av-danger-border: rgba(224, 72, 61, .42);
+  --av-danger-ink: #FFBDB6;
+  --av-danger-bg-hover: rgba(224, 72, 61, .28);
+  --av-info: #66CAF3;
+  --av-info-bg: rgba(0, 159, 227, .14);
+  --av-info-border: rgba(0, 159, 227, .36);
+  --av-info-ink: #A2DDF7;
+  --av-neutral: #C4BBAD;
+  --av-neutral-bg: #2E2A25;
+  --av-neutral-dot: #80786B;
+
+  --av-chart-3: #B5AB9B;
+  --av-chart-grid: #2D2924;
+
+  --av-shadow-sm: 0 1px 2px rgba(0, 0, 0, .35);
+  --av-shadow-md: 0 10px 28px -6px rgba(0, 0, 0, .6), 0 2px 6px rgba(0, 0, 0, .35);
+  --av-shadow-lg: 0 24px 60px -12px rgba(0, 0, 0, .75);
+
+  --av-sb-bg: #0A2536;
+  --av-sb-border: rgba(255, 255, 255, .07);
+  --av-sb-border-strong: rgba(255, 255, 255, .14);
+  --av-sb-hover: rgba(255, 255, 255, .06);
+  --av-sb-active-bg: rgba(0, 159, 227, .26);
+}
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--av-font-body);
+  font-size: var(--av-fs-body);
+  line-height: 1.5;
+  color: var(--av-text);
+  background: var(--av-bg);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--av-dur-slow) var(--av-ease), color var(--av-dur-slow) var(--av-ease);
+}
+img, svg { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+a { color: var(--av-link); text-decoration: none; }
+a:hover { color: var(--av-link-strong); text-decoration: underline; }
+h1, h2, h3, h4, p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+table { border-collapse: collapse; }
+[hidden] { display: none !important; }
+:focus-visible { outline: none; box-shadow: var(--av-focus-ring); border-radius: var(--av-r-sm); }
+
+/* Typographie */
+.av-h1 { font-family: var(--av-font-head); font-size: var(--av-fs-h1); font-weight: 800; letter-spacing: -.01em; line-height: 1.2; }
+.av-h2 { font-family: var(--av-font-head); font-size: var(--av-fs-h2); font-weight: 800; line-height: 1.3; }
+.av-h3 { font-family: var(--av-font-head); font-size: var(--av-fs-h3); font-weight: 700; line-height: 1.35; }
+.av-caption { font-size: var(--av-fs-xs); color: var(--av-text-muted); }
+.av-meta { font-size: var(--av-fs-xs); color: var(--av-text-subtle); }
+.av-num { font-variant-numeric: tabular-nums; }
+.av-mono { font-family: var(--av-font-mono); font-size: .92em; letter-spacing: -.01em; }
+.av-muted { color: var(--av-text-muted); }
+.av-strong { font-weight: 600; }
+.av-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.av-icon { width: 18px; height: 18px; flex: none; }
+.av-icon--sm { width: 15px; height: 15px; }
+.av-icon--xs { width: 13px; height: 13px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+}
+</style>
+  <style>/* ==========================================================================
+   Allo Vaho Back-office — Authentification (connexion, 2FA, activation)
+   Dépend de av-tokens.css (couleurs, typo, thème sombre).
+   → resources/css/admin/auth.css · components/auth/*.blade.php
+   ========================================================================== */
+
+:root {
+  --av-background: var(--av-bg);
+  --av-muted: var(--av-text-muted);
+
+  --av-auth-focus: #009FE3;
+  --av-auth-halo: rgba(0, 159, 227, .16);
+  --av-auth-radius: 14px;
+  --av-auth-field-h: 52px;
+  --av-auth-field-bg: #FFFFFF;
+  --av-auth-field-bd: #DCD4C7;
+  --av-auth-field-bd-hover: #C2B8A9;
+  --av-auth-icon: #8A8173;
+  --av-auth-card-shadow: 0 1px 2px rgba(31, 28, 24, .04), 0 18px 40px -22px rgba(31, 28, 24, .22);
+
+  /* Panneau connexion : bleu profond */
+  --av-auth-panel: #073A5A;
+  --av-auth-panel-ink: #FFFFFF;
+  --av-auth-panel-muted: #B7D7EA;
+  --av-auth-panel-line: rgba(255, 255, 255, .13);
+  --av-auth-panel-dots: rgba(255, 255, 255, .08);
+  --av-auth-panel-pill: rgba(7, 58, 90, .72);
+  --av-auth-bubble: #009FE3;
+  --av-auth-bubble-2: #0077B6;
+  --av-auth-accent: #F2A93B;
+
+  /* Panneau activation : soleil */
+  --av-auth-invite: #F2A93B;
+  --av-auth-invite-ink: #1F1C18;
+  --av-auth-invite-muted: #4F360B;
+  --av-auth-invite-line: rgba(31, 28, 24, .13);
+  --av-auth-invite-dots: rgba(31, 28, 24, .07);
+  --av-auth-invite-bubble: #FAF7F2;
+  --av-auth-invite-bubble-2: #F6E3C1;
+  --av-auth-invite-accent: #009FE3;
+}
+[data-theme="dark"] {
+  --av-auth-halo: rgba(0, 159, 227, .22);
+  --av-auth-field-bg: #221F1B;
+  --av-auth-field-bd: #3E3933;
+  --av-auth-field-bd-hover: #57514A;
+  --av-auth-icon: #9A9184;
+  --av-auth-card-shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 20px 44px -22px rgba(0, 0, 0, .7);
+  --av-auth-panel: #0A2536;
+  --av-auth-panel-muted: #9DC3DA;
+  --av-auth-panel-line: rgba(255, 255, 255, .08);
+  --av-auth-panel-dots: rgba(255, 255, 255, .05);
+  --av-auth-panel-pill: rgba(10, 37, 54, .78);
+  --av-auth-bubble: #0077B6;
+  --av-auth-bubble-2: #005A8C;
+  --av-auth-invite: #2A2116;
+  --av-auth-invite-ink: #F7E9D2;
+  --av-auth-invite-muted: #D6BE95;
+  --av-auth-invite-line: rgba(242, 169, 59, .18);
+  --av-auth-invite-dots: rgba(242, 169, 59, .08);
+  --av-auth-invite-bubble: #F2A93B;
+  --av-auth-invite-bubble-2: #D9912A;
+}
+
+/* ---------- Page & shell (components/auth/auth-shell) ---------- */
+.av-auth-page { font-size: 15px; background: var(--av-background); min-height: 100vh; min-height: 100dvh; overflow-x: hidden; }
+.av-auth-page :focus-visible { outline: 2px solid var(--av-auth-focus); outline-offset: 2px; box-shadow: none; }
+.av-auth-page [tabindex="-1"]:focus { outline: none; }
+.av-i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
+.av-auth-shell {
+  display: grid;
+  grid-template-columns: minmax(420px, 5fr) minmax(0, 6fr);
+  min-height: 100vh; min-height: 100dvh;
+}
+
+/* ---------- Zone visuelle (components/auth/auth-brand) ---------- */
+.av-auth-brand { position: sticky; top: 0; height: 100vh; height: 100dvh; padding: 16px; }
+.av-auth-brand__panel {
+  position: relative; height: 100%; overflow: hidden;
+  border-radius: 28px;
+  padding: 48px;
+  background: var(--av-auth-panel);
+  color: var(--av-auth-panel-ink);
+  --line: var(--av-auth-panel-line); --dots: var(--av-auth-panel-dots);
+  --bubble: var(--av-auth-bubble); --bubble-2: var(--av-auth-bubble-2); --accent: var(--av-auth-accent);
+  --muted: var(--av-auth-panel-muted); --pill: var(--av-auth-panel-pill);
+  transition: background-color var(--av-dur-slow) var(--av-ease), color var(--av-dur-slow);
+}
+.av-auth-brand--invite .av-auth-brand__panel {
+  background: var(--av-auth-invite); color: var(--av-auth-invite-ink);
+  --line: var(--av-auth-invite-line); --dots: var(--av-auth-invite-dots);
+  --bubble: var(--av-auth-invite-bubble); --bubble-2: var(--av-auth-invite-bubble-2); --accent: var(--av-auth-invite-accent);
+  --muted: var(--av-auth-invite-muted); --pill: rgba(250, 247, 242, .6);
+}
+.av-auth-brand__panel::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(var(--dots) 1.1px, transparent 1.5px) 0 0 / 22px 22px;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,.4) 55%, transparent 85%);
+          mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,.4) 55%, transparent 85%);
+}
+.av-auth-brand__art {
+  position: absolute; right: 0; bottom: 0;
+  width: min(108%, 82vh); height: auto;
+  transform: translate(20%, 11%);
+  pointer-events: none;
+  animation: av-auth-art 700ms var(--av-ease) both;
+}
+.av-auth-brand__art .av-art-ring { fill: none; stroke: var(--line); stroke-width: 1.5; }
+.av-auth-brand__art .av-art-bubble { fill: var(--bubble); transition: fill var(--av-dur-slow); }
+.av-auth-brand__art .av-art-core { fill: var(--bubble-2); opacity: .55; transition: fill var(--av-dur-slow); }
+.av-auth-brand__art .av-art-accent { fill: var(--accent); }
+@keyframes av-auth-art { from { opacity: 0; transform: translate(22%, 14%) scale(.98); } to { opacity: 1; transform: translate(20%, 11%); } }
+
+.av-auth-brand__content { position: relative; z-index: 1; max-width: 460px; }
+.av-auth-brand__eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.av-auth-brand__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.av-auth-brand__title {
+  margin-top: 18px;
+  font-family: var(--av-font-head); font-weight: 800;
+  font-size: clamp(30px, 3.1vw, 46px); line-height: 1.06; letter-spacing: -.02em;
+  text-wrap: balance;
+}
+.av-auth-brand__text { margin-top: 16px; font-size: 16px; line-height: 1.55; color: var(--muted); max-width: 36ch; text-wrap: pretty; }
+.av-auth-brand__pillars { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.av-auth-brand__pillars li {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 34px; padding: 0 13px 0 11px;
+  border-radius: var(--av-r-pill);
+  border: 1px solid var(--line);
+  background: var(--pill);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  font-size: 13px; font-weight: 600;
+}
+.av-auth-brand__pillars .av-i { width: 15px; height: 15px; color: var(--accent); }
+
+/* Carte d'invitation (page activation) */
+.av-invite-card {
+  position: absolute; z-index: 2; left: 48px; bottom: 15%;
+  width: min(330px, calc(100% - 96px));
+  padding: 18px;
+  background: var(--av-surface); color: var(--av-text);
+  border: 1px solid var(--av-border); border-radius: 18px;
+  box-shadow: 0 24px 48px -22px rgba(31, 28, 24, .45);
+  transform: rotate(-2.5deg);
+  animation: av-auth-card-in 520ms 120ms var(--av-ease) both;
+  transition: background-color var(--av-dur-slow), border-color var(--av-dur-slow), opacity var(--av-dur);
+}
+@keyframes av-auth-card-in { from { opacity: 0; transform: rotate(-2.5deg) translateY(14px); } to { opacity: 1; transform: rotate(-2.5deg); } }
+.av-invite-card__head { display: flex; align-items: center; gap: 12px; }
+.av-invite-card__name { font-weight: 700; font-size: 14.5px; }
+.av-invite-card__sub { font-size: 12.5px; color: var(--av-text-muted); }
+.av-invite-card__list { margin: 14px 0 0; display: grid; gap: 8px; padding-top: 14px; border-top: 1px dashed var(--av-border-strong); }
+.av-invite-card__list div { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
+.av-invite-card__list dt { color: var(--av-text-muted); }
+.av-invite-card__list dd { margin: 0; font-weight: 600; text-align: right; }
+.av-invite-card__foot { display: flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 12px; color: var(--av-text-subtle); }
+.av-invite-card__foot .av-i { width: 13px; height: 13px; }
+
+.av-auth-avatar {
+  width: 40px; height: 40px; flex: none; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--av-blue-100); color: var(--av-link-strong);
+  font-family: var(--av-font-head); font-weight: 800; font-size: 14px;
+}
+
+/* ---------- Colonne formulaire ---------- */
+.av-auth-main { display: flex; flex-direction: column; min-width: 0; padding: 24px 40px 20px; }
+.av-auth-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 48px; }
+.av-auth-logo { display: inline-flex; border-radius: 8px; }
+.av-auth-logo img { height: 40px; width: auto; }
+.av-auth-top__actions { display: flex; align-items: center; gap: 8px; }
+.av-auth-center { flex: 1; display: flex; align-items: center; justify-content: center; padding: 32px 0; }
+
+/* ---------- Carte (components/auth/auth-card) ---------- */
+.av-auth-card {
+  width: 100%; max-width: 448px;
+  padding: 40px;
+  background: var(--av-surface);
+  border: 1px solid var(--av-border);
+  border-radius: 24px;
+  box-shadow: var(--av-auth-card-shadow);
+  transition: background-color var(--av-dur-slow), border-color var(--av-dur-slow);
+}
+.av-auth-view.is-entering { animation: av-auth-in 240ms var(--av-ease) both; }
+@keyframes av-auth-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.av-auth-step { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; font-size: 12.5px; font-weight: 600; color: var(--av-text-muted); }
+.av-auth-step__bars { display: inline-flex; gap: 4px; }
+.av-auth-step__bars span { width: 22px; height: 4px; border-radius: 99px; background: var(--av-border-strong); transition: background var(--av-dur); }
+.av-auth-step__bars .is-active { background: var(--av-blue); }
+
+.av-auth-kicker { display: inline-flex; align-items: center; gap: 7px; height: 28px; padding: 0 11px; margin-bottom: 18px; border-radius: var(--av-r-pill); background: var(--av-sun-50); color: var(--av-sun-ink); font-size: 12.5px; font-weight: 700; }
+.av-auth-kicker .av-i { width: 14px; height: 14px; }
+
+.av-auth-tile { width: 52px; height: 52px; margin-bottom: 20px; border-radius: 16px; display: grid; place-items: center; background: var(--av-blue-50); color: var(--av-link); }
+.av-auth-tile .av-i { width: 24px; height: 24px; }
+.av-auth-tile--warning { background: var(--av-warning-bg); color: var(--av-warning); }
+.av-auth-tile--danger { background: var(--av-danger-bg); color: var(--av-danger); }
+.av-auth-tile--neutral { background: var(--av-neutral-bg); color: var(--av-neutral); }
+
+.av-auth-title { font-family: var(--av-font-head); font-weight: 800; font-size: 29px; line-height: 1.14; letter-spacing: -.018em; text-wrap: balance; }
+.av-auth-lead { margin-top: 10px; color: var(--av-text-muted); font-size: 15px; line-height: 1.55; text-wrap: pretty; }
+.av-auth-lead strong { color: var(--av-text); font-weight: 600; overflow-wrap: anywhere; }
+
+.av-auth-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 36px; padding: 0 10px 0 6px; margin: -8px 0 14px -6px;
+  border-radius: 10px; color: var(--av-text-muted); font-size: 14px; font-weight: 600;
+  transition: background var(--av-dur), color var(--av-dur);
+}
+.av-auth-back:hover { background: var(--av-hover); color: var(--av-text); }
+
+/* ---------- Formulaire & champs (components/auth/auth-field, password-field) ---------- */
+.av-auth-form { display: grid; gap: 18px; margin-top: 28px; }
+.av-auth-field { display: grid; gap: 8px; min-width: 0; border: 0; padding: 0; margin: 0; }
+.av-auth-field__row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.av-auth-label { font-size: 14px; font-weight: 600; color: var(--av-text); padding: 0; }
+
+.av-auth-control {
+  position: relative; display: flex; align-items: center;
+  height: var(--av-auth-field-h);
+  border: 1px solid var(--av-auth-field-bd);
+  border-radius: var(--av-auth-radius);
+  background: var(--av-auth-field-bg);
+  transition: border-color 180ms var(--av-ease), box-shadow 180ms var(--av-ease), background-color var(--av-dur-slow);
+}
+.av-auth-control:hover { border-color: var(--av-auth-field-bd-hover); }
+.av-auth-control:focus-within { border-color: var(--av-auth-focus); box-shadow: 0 0 0 1px var(--av-auth-focus), 0 0 0 5px var(--av-auth-halo); }
+.av-auth-control__icon { margin-left: 16px; color: var(--av-auth-icon); transition: color var(--av-dur); }
+.av-auth-control:focus-within .av-auth-control__icon { color: var(--av-link); }
+.av-auth-control.is-filled .av-auth-control__icon { color: var(--av-text-muted); }
+.av-auth-input {
+  flex: 1; min-width: 0; height: 100%;
+  padding: 0 16px 0 12px;
+  border: 0; outline: none; background: transparent;
+  font-size: 16px; color: var(--av-text);
+  border-radius: inherit;
+}
+.av-auth-input:focus-visible { outline: none; }
+.av-auth-input::placeholder { color: var(--av-text-subtle); opacity: 1; }
+.av-auth-input:-webkit-autofill { -webkit-box-shadow: 0 0 0 40px var(--av-auth-field-bg) inset; -webkit-text-fill-color: var(--av-text); caret-color: var(--av-text); }
+.av-auth-control.is-invalid { border-color: var(--av-danger); }
+.av-auth-control.is-invalid .av-auth-control__icon { color: var(--av-danger); }
+.av-auth-control.is-invalid:focus-within { box-shadow: 0 0 0 1px var(--av-danger), 0 0 0 5px var(--av-danger-bg); }
+.av-auth-control.is-disabled { background: var(--av-surface-3); border-color: var(--av-border); cursor: not-allowed; }
+.av-auth-control.is-disabled .av-auth-input { color: var(--av-text-muted); cursor: not-allowed; }
+
+/* Afficher / masquer */
+.av-auth-control__action {
+  position: relative; width: 44px; height: 44px; margin-right: 4px; flex: none;
+  display: grid; place-items: center;
+  border-radius: 10px; color: var(--av-auth-icon);
+  transition: background var(--av-dur), color var(--av-dur);
+}
+.av-auth-control__action:hover { background: var(--av-hover); color: var(--av-text); }
+.av-auth-control__action:disabled { opacity: .5; cursor: not-allowed; }
+.av-auth-control__action .av-i { position: absolute; transition: opacity 180ms var(--av-ease), transform 220ms var(--av-ease); }
+.av-auth-control__action .av-i-hide { opacity: 0; transform: scale(.7); }
+.av-auth-control__action.is-visible .av-i-show { opacity: 0; transform: scale(.7); }
+.av-auth-control__action.is-visible .av-i-hide { opacity: 1; transform: none; }
+
+.av-auth-hint { font-size: 13px; color: var(--av-text-muted); line-height: 1.45; }
+.av-auth-error, .av-auth-ok { display: flex; align-items: flex-start; gap: 6px; font-size: 13px; font-weight: 600; line-height: 1.4; animation: av-auth-drop 180ms var(--av-ease); }
+.av-auth-error { color: var(--av-danger); }
+.av-auth-ok { color: var(--av-success); }
+.av-auth-error .av-i, .av-auth-ok .av-i { width: 15px; height: 15px; margin-top: 1px; }
+@keyframes av-auth-drop { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Boutons & liens ---------- */
+.av-auth-btn {
+  position: relative; width: 100%; height: 52px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  border-radius: var(--av-auth-radius);
+  font-size: 15.5px; font-weight: 700; letter-spacing: .005em;
+  text-decoration: none;
+  transition: background-color 180ms var(--av-ease), box-shadow 180ms var(--av-ease), transform 180ms var(--av-ease), border-color 180ms;
+}
+.av-auth-btn:hover { text-decoration: none; }
+.av-auth-btn--primary {
+  background: var(--av-blue-dark); color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), 0 8px 18px -10px rgba(0, 119, 182, .7);
+}
+.av-auth-btn--primary:hover { background: #0069A1; color: #fff; transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), 0 12px 22px -10px rgba(0, 119, 182, .75); }
+.av-auth-btn--primary:active { transform: none; }
+.av-auth-btn--secondary { background: var(--av-surface); color: var(--av-text); border: 1px solid var(--av-border-strong); }
+.av-auth-btn--secondary:hover { background: var(--av-hover); color: var(--av-text); }
+.av-auth-btn:focus-visible { outline: 2px solid var(--av-auth-focus); outline-offset: 3px; }
+.av-auth-btn:disabled { cursor: not-allowed; opacity: .55; transform: none; }
+.av-auth-btn.is-loading { cursor: progress; opacity: 1; }
+.av-auth-btn.is-loading .av-auth-btn__arrow { display: none; }
+.av-auth-btn__arrow { transition: transform 180ms var(--av-ease); }
+.av-auth-btn:hover .av-auth-btn__arrow { transform: translateX(3px); }
+.av-auth-spinner { width: 18px; height: 18px; flex: none; animation: av-auth-spin .8s linear infinite; }
+@keyframes av-auth-spin { to { transform: rotate(360deg); } }
+
+.av-auth-link {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 32px;
+  color: var(--av-link); font-weight: 600; font-size: 14px;
+  border-radius: 6px; text-underline-offset: 3px;
+}
+.av-auth-link:hover { color: var(--av-link-strong); text-decoration: underline; }
+.av-auth-link:disabled { color: var(--av-text-subtle); cursor: not-allowed; text-decoration: none; }
+.av-auth-link--muted { color: var(--av-text-muted); font-weight: 500; }
+.av-auth-link--muted:hover { color: var(--av-text); }
+
+.av-auth-actions { display: grid; gap: 10px; margin-top: 28px; }
+.av-auth-foot { display: grid; gap: 12px; margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--av-border); text-align: center; }
+.av-auth-secure { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 13px; color: var(--av-text-muted); }
+.av-auth-secure .av-i { width: 16px; height: 16px; color: var(--av-success); }
+.av-auth-help { font-size: 14px; color: var(--av-text-muted); display: flex; align-items: center; justify-content: center; gap: 4px 6px; flex-wrap: wrap; }
+
+/* ---------- Messages (components/auth/auth-message) ---------- */
+.av-auth-message {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 16px; border-radius: var(--av-auth-radius);
+  border: 1px solid; font-size: 14px; line-height: 1.45;
+  animation: av-auth-drop 200ms var(--av-ease);
+}
+.av-auth-message__icon { margin-top: 1px; }
+.av-auth-message__body { min-width: 0; flex: 1; }
+.av-auth-message__title { font-weight: 700; }
+.av-auth-message__text { margin-top: 2px; }
+.av-auth-message__code { display: inline-block; margin-top: 8px; font-family: var(--av-font-mono); font-size: 11.5px; opacity: .78; }
+.av-auth-message__action { display: inline-flex; margin-top: 8px; min-height: 32px; align-items: center; font-weight: 700; color: inherit; text-decoration: underline; text-underline-offset: 3px; border-radius: 6px; }
+.av-auth-message--error { background: var(--av-danger-bg); border-color: var(--av-danger-border); color: var(--av-danger-ink); }
+.av-auth-message--error .av-auth-message__icon { color: var(--av-danger); }
+.av-auth-message--warning { background: var(--av-warning-bg); border-color: var(--av-warning-border); color: var(--av-warning-ink); }
+.av-auth-message--warning .av-auth-message__icon { color: var(--av-warning); }
+.av-auth-message--success { background: var(--av-success-bg); border-color: var(--av-success-border); color: var(--av-success-ink); }
+.av-auth-message--success .av-auth-message__icon { color: var(--av-success); }
+.av-auth-message--info { background: var(--av-info-bg); border-color: var(--av-info-border); color: var(--av-info-ink); }
+.av-auth-message--info .av-auth-message__icon { color: var(--av-info); }
+
+/* ---------- OTP (components/auth/otp-input) ---------- */
+.av-otp {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) 14px repeat(3, minmax(0, 1fr));
+  gap: 8px; align-items: center;
+}
+.av-otp__sep { height: 2px; border-radius: 2px; background: var(--av-border-strong); }
+.av-otp__box {
+  width: 100%; height: 60px; padding: 0;
+  text-align: center;
+  font-family: var(--av-font-head); font-weight: 800; font-size: 26px; font-variant-numeric: tabular-nums;
+  color: var(--av-text); caret-color: var(--av-auth-focus);
+  background: var(--av-auth-field-bg);
+  border: 1px solid var(--av-auth-field-bd); border-radius: var(--av-auth-radius);
+  outline: none;
+  transition: border-color 150ms, box-shadow 150ms, background-color 150ms, color 150ms, opacity 150ms;
+}
+.av-otp__box:hover { border-color: var(--av-auth-field-bd-hover); }
+.av-otp__box:focus, .av-otp__box:focus-visible { outline: none; border-color: var(--av-auth-focus); box-shadow: 0 0 0 1px var(--av-auth-focus), 0 0 0 5px var(--av-auth-halo); }
+.av-otp__box.is-filled { border-color: var(--av-border-hover); animation: av-otp-pop 160ms var(--av-ease); }
+.av-otp__box:disabled { cursor: not-allowed; }
+@keyframes av-otp-pop { 50% { transform: scale(1.05); } }
+.av-otp.is-error .av-otp__box { border-color: var(--av-danger); background: var(--av-danger-bg); }
+.av-otp.is-error { animation: av-otp-shake 260ms var(--av-ease); }
+@keyframes av-otp-shake { 20% { transform: translateX(-5px); } 45% { transform: translateX(5px); } 70% { transform: translateX(-3px); } 90% { transform: translateX(2px); } }
+.av-otp.is-success .av-otp__box { border-color: var(--av-success-dot); background: var(--av-success-bg); color: var(--av-success); }
+.av-otp.is-loading .av-otp__box { opacity: .6; }
+
+.av-auth-resend { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 16px; font-size: 14px; color: var(--av-text-muted); }
+.av-auth-resend__timer { display: inline-flex; align-items: center; min-height: 32px; }
+.av-auth-countdown { margin-left: 4px; font-variant-numeric: tabular-nums; font-weight: 700; color: var(--av-text); }
+
+/* ---------- Force du mot de passe ---------- */
+.av-strength { display: grid; gap: 10px; padding: 14px; border-radius: var(--av-auth-radius); background: var(--av-surface-2); border: 1px solid var(--av-border); }
+.av-strength__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 13px; color: var(--av-text-muted); }
+.av-strength__head strong { font-weight: 700; color: var(--av-text-subtle); transition: color var(--av-dur); }
+.av-strength__bar { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+.av-strength__bar span { height: 5px; border-radius: 99px; background: var(--av-border-strong); transition: background-color 220ms var(--av-ease); }
+.av-strength[data-level="1"] .av-strength__bar span:nth-child(-n+1) { background: var(--av-danger-dot); }
+.av-strength[data-level="2"] .av-strength__bar span:nth-child(-n+2) { background: var(--av-warning-dot); }
+.av-strength[data-level="3"] .av-strength__bar span:nth-child(-n+3) { background: var(--av-success-dot); }
+.av-strength[data-level="4"] .av-strength__bar span { background: var(--av-success-dot); }
+.av-strength[data-level="1"] strong { color: var(--av-danger); }
+.av-strength[data-level="2"] strong { color: var(--av-warning); }
+.av-strength[data-level="3"] strong, .av-strength[data-level="4"] strong { color: var(--av-success); }
+.av-rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px 12px; font-size: 13px; color: var(--av-text-muted); }
+.av-rule { display: flex; align-items: center; gap: 8px; min-width: 0; transition: color var(--av-dur); }
+.av-rule__mark { width: 16px; height: 16px; flex: none; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 1.5px var(--av-border-strong); color: transparent; transition: background-color 180ms, box-shadow 180ms, color 180ms; }
+.av-rule__mark .av-i { width: 11px; height: 11px; stroke-width: 3; }
+.av-rule.is-met { color: var(--av-text); }
+.av-rule.is-met .av-rule__mark { background: var(--av-success-dot); box-shadow: none; color: #fff; }
+.av-strength__note { font-size: 12px; color: var(--av-text-subtle); }
+
+/* ---------- Invitation : informations non modifiables ---------- */
+.av-invite-box { display: grid; gap: 12px; padding: 14px 16px; border-radius: 16px; background: var(--av-surface-2); border: 1px solid var(--av-border); }
+.av-invite-box__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.av-invite-box__title { font-family: var(--av-font-body); font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--av-text-muted); }
+.av-invite-box__tag { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: var(--av-text-subtle); }
+.av-invite-box__tag .av-i { width: 13px; height: 13px; }
+.av-invite-box__list { display: grid; gap: 10px; margin: 0; }
+.av-invite-box__list > div { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 12px; align-items: baseline; }
+.av-invite-box__list dt { font-size: 13.5px; color: var(--av-text-muted); }
+.av-invite-box__list dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; }
+.av-invite-box__meta { font-size: 12.5px; font-weight: 500; color: var(--av-text-muted); }
+.av-auth-role { display: inline-flex; align-items: center; gap: 7px; height: 26px; padding: 0 10px; border-radius: var(--av-r-pill); background: var(--av-info-bg); color: var(--av-info-ink); font-size: 13px; font-weight: 700; }
+.av-auth-role::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--av-info-dot); }
+
+/* ---------- Résultats (succès, états d'invitation) ---------- */
+.av-auth-result { text-align: center; }
+.av-auth-result .av-auth-tile { margin-left: auto; margin-right: auto; }
+.av-auth-result .av-auth-lead { margin-left: auto; margin-right: auto; max-width: 36ch; }
+.av-auth-result .av-invite-box { text-align: left; margin-top: 24px; }
+.av-auth-result .av-auth-message { text-align: left; margin-top: 20px; }
+.av-auth-check {
+  width: 76px; height: 76px; margin: 0 auto 22px;
+  border-radius: 50%; display: grid; place-items: center;
+  background: var(--av-success-bg); color: var(--av-success);
+  box-shadow: 0 0 0 10px color-mix(in srgb, var(--av-success-bg) 50%, transparent);
+  animation: av-auth-check-in 280ms var(--av-ease) both;
+}
+.av-auth-check svg { width: 36px; height: 36px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.av-auth-check path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: av-auth-draw 380ms 180ms var(--av-ease) forwards; }
+@keyframes av-auth-check-in { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: none; } }
+@keyframes av-auth-draw { to { stroke-dashoffset: 0; } }
+.av-auth-progress { height: 4px; max-width: 220px; margin: 24px auto 14px; border-radius: 99px; background: var(--av-surface-3); overflow: hidden; }
+.av-auth-progress span { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--av-blue); animation: av-auth-fill 1.8s linear forwards; }
+@keyframes av-auth-fill { to { width: 100%; } }
+
+.av-auth-checking { display: grid; justify-items: center; gap: 14px; padding: 28px 0; text-align: center; color: var(--av-text-muted); }
+.av-auth-checking .av-auth-spinner { width: 30px; height: 30px; color: var(--av-blue); }
+.av-auth-skeleton { display: grid; gap: 10px; width: 100%; margin-top: 12px; }
+.av-auth-skeleton span { height: 52px; border-radius: var(--av-auth-radius); background: linear-gradient(90deg, var(--av-surface-3) 0%, var(--av-skeleton-hi) 50%, var(--av-surface-3) 100%); background-size: 200% 100%; animation: av-auth-shimmer 1.3s linear infinite; }
+@keyframes av-auth-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+/* ---------- Thème (components/auth/theme-toggle) ---------- */
+.av-theme-toggle {
+  position: relative; width: 44px; height: 44px; flex: none;
+  display: grid; place-items: center;
+  border-radius: 12px; border: 1px solid var(--av-border);
+  background: var(--av-surface); color: var(--av-text-muted);
+  transition: background-color var(--av-dur), color var(--av-dur), border-color var(--av-dur);
+}
+.av-theme-toggle:hover { background: var(--av-hover); color: var(--av-text); }
+.av-theme-toggle .av-i { position: absolute; transition: opacity 200ms var(--av-ease), transform 250ms var(--av-ease); }
+.av-theme-toggle__moon { opacity: 0; transform: rotate(-70deg) scale(.6); }
+[data-theme="dark"] .av-theme-toggle__sun { opacity: 0; transform: rotate(70deg) scale(.6); }
+[data-theme="dark"] .av-theme-toggle__moon { opacity: 1; transform: none; }
+
+/* ---------- Scénarios de démonstration (à retirer en production) ---------- */
+.av-demo { position: relative; }
+.av-demo__toggle {
+  display: inline-flex; align-items: center; gap: 7px;
+  height: 44px; padding: 0 14px;
+  border-radius: 12px; border: 1px dashed var(--av-border-strong);
+  color: var(--av-text-muted); font-size: 13px; font-weight: 600;
+  transition: background var(--av-dur), color var(--av-dur);
+}
+.av-demo__toggle:hover, .av-demo__toggle[aria-expanded="true"] { background: var(--av-hover); color: var(--av-text); }
+.av-demo__toggle .av-i { width: 16px; height: 16px; }
+.av-demo__panel {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 20;
+  width: min(310px, calc(100vw - 32px));
+  padding: 16px; display: grid; gap: 14px;
+  background: var(--av-surface); border: 1px solid var(--av-border); border-radius: 16px;
+  box-shadow: var(--av-shadow-md);
+  animation: av-auth-drop 180ms var(--av-ease);
+}
+.av-demo__title { font-family: var(--av-font-head); font-weight: 800; font-size: 15px; }
+.av-demo__group { display: grid; gap: 7px; }
+.av-demo__label { font-size: 11.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--av-text-muted); }
+.av-demo__options { display: flex; flex-wrap: wrap; gap: 6px; }
+.av-demo__options button { min-height: 34px; padding: 0 11px; border-radius: 9px; border: 1px solid var(--av-border-strong); font-size: 13px; font-weight: 600; color: var(--av-text-muted); transition: background var(--av-dur), color var(--av-dur), border-color var(--av-dur); }
+.av-demo__options button:hover { background: var(--av-hover); color: var(--av-text); }
+.av-demo__options button[aria-pressed="true"] { background: var(--av-blue-50); border-color: var(--av-blue); color: var(--av-link-strong); }
+.av-demo__note { font-size: 12px; color: var(--av-text-subtle); line-height: 1.45; }
+
+/* ---------- Footer (components/auth/auth-footer) ---------- */
+.av-auth-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px 16px; font-size: 12.5px; color: var(--av-text-subtle); }
+.av-auth-footer nav { display: flex; align-items: center; flex-wrap: wrap; gap: 0 16px; }
+.av-auth-footer a { display: inline-flex; align-items: center; min-height: 32px; color: var(--av-text-muted); border-radius: 6px; }
+.av-auth-footer a:hover { color: var(--av-text); }
+.av-auth-footer__version { font-family: var(--av-font-mono); font-size: 11.5px; }
+
+/* ---------- Responsive ---------- */
+@media (max-height: 760px) and (min-width: 1024px) {
+  .av-auth-brand__text { display: none; }
+  .av-auth-brand__title { font-size: clamp(28px, 2.6vw, 38px); }
+}
+@media (max-width: 1279px) {
+  .av-auth-shell { grid-template-columns: minmax(380px, 4fr) minmax(0, 6fr); }
+  .av-auth-brand__panel { padding: 40px; }
+  .av-invite-card { left: 40px; width: min(310px, calc(100% - 80px)); }
+  .av-auth-main { padding: 22px 32px 18px; }
+}
+@media (max-width: 1023px) {
+  .av-auth-shell { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .av-auth-brand { padding: 12px; }
+  .av-auth-brand__panel { padding: 32px 28px; border-radius: 24px; }
+  .av-auth-brand__text, .av-auth-brand__pillars { display: none; }
+  .av-auth-brand__title { font-size: clamp(26px, 3.6vw, 34px); }
+  .av-auth-brand__art { width: 150%; transform: translate(30%, 12%); animation: none; }
+  .av-invite-card { left: 20px; right: 20px; width: auto; bottom: 10%; padding: 14px; }
+  .av-invite-card__foot { display: none; }
+  .av-auth-main { padding: 20px 24px 16px; }
+  .av-auth-card { padding: 32px 28px; }
+}
+@media (max-width: 767px) {
+  .av-auth-shell { grid-template-columns: minmax(0, 1fr); }
+  .av-auth-brand { display: none; }
+  .av-auth-page { background:
+      radial-gradient(90% 38% at 100% 0%, var(--av-blue-50), transparent 70%),
+      var(--av-background); }
+  .av-auth-page--invite { background:
+      radial-gradient(90% 38% at 100% 0%, var(--av-sun-50), transparent 70%),
+      var(--av-background); }
+  .av-auth-main { padding: 14px 20px 16px; }
+  .av-auth-center { align-items: flex-start; padding: 22px 0 28px; }
+  .av-auth-card { max-width: 480px; }
+  .av-auth-logo img { height: 36px; }
+  .av-auth-link, .av-auth-footer a, .av-auth-resend__timer { min-height: 44px; }
+}
+@media (max-width: 480px) {
+  .av-auth-card { padding: 4px 0 0; border: 0; background: transparent; box-shadow: none; }
+  .av-auth-title { font-size: 25px; }
+  .av-auth-form { margin-top: 24px; }
+  .av-otp { gap: 6px; grid-template-columns: repeat(3, minmax(0, 1fr)) 10px repeat(3, minmax(0, 1fr)); }
+  .av-otp__box { height: 56px; font-size: 24px; }
+  .av-rules { grid-template-columns: minmax(0, 1fr); }
+  .av-invite-box__list > div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .av-demo__toggle span { display: none; }
+  .av-demo__toggle { width: 44px; padding: 0; justify-content: center; }
+  .av-auth-footer { justify-content: center; text-align: center; }
+  .av-auth-footer nav { justify-content: center; }
+}
+</style>
+</head>
+<body class="av-auth-page av-auth-page--invite">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></symbol>
+  <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"></path><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"></path><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"></path><path d="m2 2 20 20"></path></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4"></path><path d="M12 16h.01"></path></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path><circle cx="16.5" cy="7.5" r=".5"></circle></symbol>
+  <symbol id="i-badge" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path><path d="m9 12 2 2 4-4"></path></symbol>
+  <symbol id="i-scroll" viewBox="0 0 24 24"><path d="M15 12h-5"></path><path d="M15 8h-5"></path><path d="M19 17V5a2 2 0 0 0-2-2H4"></path><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"></path></symbol>
+  <symbol id="i-unlink" viewBox="0 0 24 24"><path d="m18.84 12.25 1.72-1.71h-.02a5.004 5.004 0 0 0-.12-7.07 5.006 5.006 0 0 0-6.95 0l-1.72 1.71"></path><path d="m5.17 11.75-1.71 1.71a5.004 5.004 0 0 0 .12 7.07 5.006 5.006 0 0 0 6.95 0l1.71-1.71"></path><path d="M8 2v3"></path><path d="M2 8h3"></path><path d="M16 19v3"></path><path d="M19 16h3"></path></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path><path d="m21.854 2.147-10.94 10.939"></path></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"></path><path d="M6.453 15h11.094"></path><path d="M8.5 2h7"></path></symbol>
+</svg>
+<div class="av-auth-shell">
+  <!-- Zone visuelle : variante invitation -->
+  <aside class="av-auth-brand av-auth-brand--invite" aria-label="Invitation au back-office">
+    <div class="av-auth-brand__panel">
+      <svg class="av-auth-brand__art" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+          <circle class="av-art-ring" cx="300" cy="290" r="258"></circle>
+          <circle class="av-art-ring" cx="300" cy="290" r="318"></circle>
+          <circle class="av-art-ring" cx="300" cy="290" r="392"></circle>
+          <path class="av-art-bubble" d="M300 80 A210 210 0 1 1 151.5 438.5 L64 524 L100.3 354.9 A210 210 0 0 1 300 80 Z"></path>
+          <circle class="av-art-core" cx="300" cy="290" r="128"></circle>
+          <circle class="av-art-accent" cx="468" cy="132" r="30"></circle>
+        </svg>
+      <div class="av-auth-brand__content">
+        <p class="av-auth-brand__eyebrow"><span class="av-auth-brand__dot"></span>Invitation · Back-office</p>
+        <p class="av-auth-brand__title" data-panel-title="">Votre accès<br>est prêt.</p>
+        <p class="av-auth-brand__text" data-panel-text="">Choisissez votre mot de passe pour rejoindre l’espace d’administration Allo Vaho.</p>
+      </div>
+      <div class="av-invite-card" data-invite-card="" hidden="">
+        <div class="av-invite-card__head">
+          <span class="av-auth-avatar" aria-hidden="true">EF</span>
+          <div><div class="av-invite-card__name" data-invite="invitedBy">Estelle Fouda</div><div class="av-invite-card__sub"><span data-invite="inviterRole">Super Admin</span> · vous a invité</div></div>
+        </div>
+        <dl class="av-invite-card__list">
+          <div><dt>Accès</dt><dd data-invite="role">Support</dd></div>
+          <div><dt>Valable jusqu’au</dt><dd data-invite="validUntil">1 oct. 2026 · 14:00</dd></div>
+        </dl>
+        <p class="av-invite-card__foot"><svg class="av-i" aria-hidden="true"><use href="#i-lock"></use></svg>Lien personnel · usage unique</p>
+      </div>
+    </div>
+  </aside>
+
+  <main class="av-auth-main">
+      <header class="av-auth-top">
+        <a class="av-auth-logo" href="login.html" aria-label="Allo Vaho — connexion"><img src="assets/9e39d6c3-b9a3-4d34-ba42-c6dbcf18233d.png" alt="Allo Vaho" width="310" height="176"></a>
+        <div class="av-auth-top__actions">
+          <div class="av-demo" data-demo="">
+            <button type="button" class="av-demo__toggle" data-demo-toggle="" aria-expanded="false" aria-controls="demo-panel" aria-label="Scénarios de démonstration"><svg class="av-i" aria-hidden="true"><use href="#i-flask"></use></svg><span>Démo</span></button>
+            <div class="av-demo__panel" id="demo-panel" data-demo-panel="" hidden="">
+              <p class="av-demo__title">Scénarios de démonstration</p>
+              <div class="av-demo__group" data-demo-group="invite" role="group" aria-label="Invitation">
+                <span class="av-demo__label">Invitation</span>
+                <div class="av-demo__options"><button type="button" data-demo-value="valid" aria-pressed="true">Valide</button><button type="button" data-demo-value="expired" aria-pressed="false">Expirée</button><button type="button" data-demo-value="invalid" aria-pressed="false">Invalide</button><button type="button" data-demo-value="used" aria-pressed="false">Déjà utilisée</button></div>
+              </div>
+              <div class="av-demo__group" data-demo-group="activation" role="group" aria-label="Activation">
+                <span class="av-demo__label">Activation</span>
+                <div class="av-demo__options"><button type="button" data-demo-value="ok" aria-pressed="true">Réussie</button><button type="button" data-demo-value="server" aria-pressed="false">Erreur serveur</button></div>
+              </div>
+              <p class="av-demo__note">Aucune donnée n’est envoyée : les réponses du serveur sont simulées.</p>
+            </div>
+          </div>
+          <button type="button" class="av-theme-toggle" data-theme-toggle="" aria-pressed="false" aria-label="Activer le mode sombre"><svg class="av-i av-theme-toggle__sun" aria-hidden="true"><use href="#i-sun"></use></svg><svg class="av-i av-theme-toggle__moon" aria-hidden="true"><use href="#i-moon"></use></svg></button>
+        </div>
+      </header>
+
+    <div class="av-auth-center">
+      <section class="av-auth-card" data-auth-card="" aria-label="Activation du compte">
+
+        <!-- Vérification du lien -->
+        <div class="av-auth-view" data-view="checking">
+          <div class="av-auth-checking" role="status">
+            <svg class="av-auth-spinner" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity=".3" stroke-width="3"></circle><path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path></svg>
+            <p>Vérification de votre invitation…</p>
+            <div class="av-auth-skeleton" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+
+        <!-- Invitation valide : formulaire -->
+        <div class="av-auth-view" data-view="form" hidden="">
+          <span class="av-auth-kicker"><svg class="av-i" aria-hidden="true"><use href="#i-send"></use></svg>Invitation personnelle</span>
+          <h1 class="av-auth-title">Activez votre compte</h1>
+          <p class="av-auth-lead">Votre accès administrateur Allo Vaho vous a été attribué. Il ne vous reste qu’à choisir votre mot de passe.</p>
+          <form class="av-auth-form" id="activate-form" novalidate="">
+            <div class="av-auth-message" id="activate-message" hidden=""></div>
+            <section class="av-invite-box" aria-labelledby="invite-box-title">
+              <div class="av-invite-box__head"><h2 class="av-invite-box__title" id="invite-box-title">Défini par votre invitation</h2><span class="av-invite-box__tag"><svg class="av-i" aria-hidden="true"><use href="#i-lock"></use></svg>Non modifiable</span></div>
+              <dl class="av-invite-box__list">
+                <div><dt>Adresse e-mail</dt><dd data-invite="email">jean.dupont@allovaho.com</dd></div>
+                <div><dt>Rôle</dt><dd><span class="av-auth-role" data-invite="role">Support</span><span class="av-invite-box__meta">Attribué par un administrateur</span></dd></div>
+              </dl>
+            </section>
+            <div class="av-auth-field">
+              <label class="av-auth-label" for="activate-name">Nom complet</label>
+              <div class="av-auth-control">
+                <svg class="av-i av-auth-control__icon" aria-hidden="true"><use href="#i-user"></use></svg>
+                <input class="av-auth-input" id="activate-name" name="name" type="text" autocomplete="name" placeholder="Prénom Nom" aria-describedby="activate-name-error" required="">
+                
+              </div>
+              <p class="av-auth-error" id="activate-name-error" data-field-error="" hidden=""><svg class="av-i" aria-hidden="true"><use href="#i-alert"></use></svg><span></span></p>
+            </div>
+            <div class="av-auth-field">
+              <label class="av-auth-label" for="activate-password">Mot de passe</label>
+              <div class="av-auth-control">
+                <svg class="av-i av-auth-control__icon" aria-hidden="true"><use href="#i-lock"></use></svg>
+                <input class="av-auth-input" id="activate-password" name="password" type="password" autocomplete="new-password" placeholder="Choisissez un mot de passe" aria-describedby="activate-password-error pwd-strength" required="">
+                <button type="button" class="av-auth-control__action" data-password-toggle="" aria-controls="activate-password" aria-pressed="false" aria-label="Afficher le mot de passe"><svg class="av-i av-i-show" aria-hidden="true"><use href="#i-eye"></use></svg><svg class="av-i av-i-hide" aria-hidden="true"><use href="#i-eye-off"></use></svg></button>
+              </div>
+              <p class="av-auth-error" id="activate-password-error" data-field-error="" hidden=""><svg class="av-i" aria-hidden="true"><use href="#i-alert"></use></svg><span></span></p>
+              <div class="av-strength" id="pwd-strength" data-level="0">
+                <div class="av-strength__head"><span>Sécurité du mot de passe</span><strong data-strength-label="" aria-live="polite">—</strong></div>
+                <div class="av-strength__bar" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+                <ul class="av-rules" data-rules="" aria-label="Règles du mot de passe"></ul>
+                <p class="av-strength__note">Règles indicatives, configurables selon la politique de sécurité.</p>
+              </div>
+            </div>
+            <div class="av-auth-field">
+              <label class="av-auth-label" for="activate-confirm">Confirmer le mot de passe</label>
+              <div class="av-auth-control">
+                <svg class="av-i av-auth-control__icon" aria-hidden="true"><use href="#i-lock"></use></svg>
+                <input class="av-auth-input" id="activate-confirm" name="confirm" type="password" autocomplete="new-password" placeholder="Saisissez-le à nouveau" aria-describedby="activate-confirm-error confirm-ok" data-live="" required="">
+                <button type="button" class="av-auth-control__action" data-password-toggle="" aria-controls="activate-confirm" aria-pressed="false" aria-label="Afficher le mot de passe"><svg class="av-i av-i-show" aria-hidden="true"><use href="#i-eye"></use></svg><svg class="av-i av-i-hide" aria-hidden="true"><use href="#i-eye-off"></use></svg></button>
+              </div>
+              <p class="av-auth-error" id="activate-confirm-error" data-field-error="" hidden=""><svg class="av-i" aria-hidden="true"><use href="#i-alert"></use></svg><span></span></p>
+              <p class="av-auth-ok" id="confirm-ok" hidden=""><svg class="av-i" aria-hidden="true"><use href="#i-check-circle"></use></svg><span>Les mots de passe correspondent.</span></p>
+            </div>
+            <button type="submit" class="av-auth-btn av-auth-btn--primary" id="activate-submit"><span data-label="">Activer mon compte</span><svg class="av-i av-auth-btn__arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg></button>
+          </form>
+          <div class="av-auth-foot">
+            <p class="av-auth-secure"><svg class="av-i" aria-hidden="true"><use href="#i-shield"></use></svg>La vérification en deux étapes sera demandée à chaque connexion.</p>
+          </div>
+        </div>
+
+        <!-- Activation réussie -->
+        <div class="av-auth-view av-auth-result" data-view="success" hidden="">
+          <span class="av-auth-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+          <h1 class="av-auth-title">Votre compte est prêt.</h1>
+          <p class="av-auth-lead">Votre accès administrateur Allo Vaho a été activé.</p>
+          <section class="av-invite-box" aria-label="Récapitulatif du compte">
+            <dl class="av-invite-box__list">
+              <div><dt>Nom</dt><dd data-success-name="">Jean Dupont</dd></div>
+              <div><dt>Adresse e-mail</dt><dd data-invite="email">jean.dupont@allovaho.com</dd></div>
+              <div><dt>Rôle</dt><dd><span class="av-auth-role" data-invite="role">Support</span></dd></div>
+            </dl>
+          </section>
+          <div class="av-auth-actions">
+            <a class="av-auth-btn av-auth-btn--primary" id="success-login" href="login.html"><span data-label="">Se connecter</span><svg class="av-i av-auth-btn__arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+          </div>
+          <p class="av-auth-hint" style="margin-top:14px">Un code de vérification vous sera demandé après votre mot de passe.</p>
+        </div>
+
+        <!-- Invitation expirée -->
+        <div class="av-auth-view av-auth-result" data-view="expired" hidden="">
+          <span class="av-auth-tile av-auth-tile--warning" aria-hidden="true"><svg class="av-i" aria-hidden="true"><use href="#i-clock"></use></svg></span>
+          <h1 class="av-auth-title">Invitation expirée</h1>
+          <p class="av-auth-lead">Ce lien d’invitation n’est plus valide. Il a expiré le <span data-invite="expiredOn">27 sept. 2026</span>.</p>
+          <div class="av-auth-message" id="expired-message" hidden=""></div>
+          <div class="av-auth-actions">
+            <button type="button" class="av-auth-btn av-auth-btn--primary" id="request-invite"><span data-label="">Demander une nouvelle invitation</span></button>
+            <a class="av-auth-btn av-auth-btn--secondary" href="mailto:support@allovaho.demo"><span data-label="">Contacter le support</span></a>
+          </div>
+        </div>
+
+        <!-- Invitation invalide -->
+        <div class="av-auth-view av-auth-result" data-view="invalid" hidden="">
+          <span class="av-auth-tile av-auth-tile--danger" aria-hidden="true"><svg class="av-i" aria-hidden="true"><use href="#i-unlink"></use></svg></span>
+          <h1 class="av-auth-title">Lien d’invitation invalide</h1>
+          <p class="av-auth-lead">Ce lien est incomplet ou a été modifié. Ouvrez-le directement depuis l’e-mail d’invitation, ou demandez un nouveau lien à l’administrateur qui vous a invité.</p>
+          <div class="av-auth-actions">
+            <a class="av-auth-btn av-auth-btn--secondary" href="mailto:support@allovaho.demo"><span data-label="">Contacter le support</span></a>
+            <a class="av-auth-link" href="login.html" style="justify-content:center">J’ai déjà un compte · Se connecter</a>
+          </div>
+        </div>
+
+        <!-- Invitation déjà utilisée -->
+        <div class="av-auth-view av-auth-result" data-view="used" hidden="">
+          <span class="av-auth-tile" aria-hidden="true"><svg class="av-i" aria-hidden="true"><use href="#i-check-circle"></use></svg></span>
+          <h1 class="av-auth-title">Cette invitation a déjà été utilisée.</h1>
+          <p class="av-auth-lead">Le compte associé est déjà actif. Connectez-vous avec votre adresse e-mail et votre mot de passe.</p>
+          <div class="av-auth-actions">
+            <a class="av-auth-btn av-auth-btn--primary" href="login.html"><span data-label="">Se connecter</span><svg class="av-i av-auth-btn__arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+      <footer class="av-auth-footer">
+        <span>© 2026 Allo Vaho</span>
+        <nav aria-label="Liens utiles">
+          <a href="#confidentialite">Confidentialité</a>
+          <a href="mailto:support@allovaho.demo">Aide</a>
+          <span class="av-auth-footer__version">v1.0.0</span>
+        </nav>
+      </footer>
+  </main>
+</div>
+<script src="assets/33c73804-b24c-47bd-aba5-636bbcb02885.js" defer=""></script>
+<script src="assets/fd3be2bb-552e-4392-87c1-51667db7a4ad.js" defer=""></script>
+
+
+</body></html>

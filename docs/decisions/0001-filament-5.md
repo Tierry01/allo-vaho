@@ -55,3 +55,46 @@ résout sans conflit : 37 installations, aucune mise à jour des paquets existan
 5. Phase 2 — Authentification : guard `admin`, table `admins`, 2FA obligatoire, écrans Connexion et Activation.
 
 Ne pas utiliser `filament:install --scaffold` : cette commande écrase des fichiers existants.
+
+## Préparation de la Phase 1 — constats du 12/10/2026
+
+Filament n'est pas encore installé. Vérifié dans l'environnement réel :
+
+| Élément | Version installée | Constat |
+|---|---|---|
+| Laravel | 13.35.0 | Filament 5 demande 11.28+ |
+| PHP | 8.3.14, `ext-intl` présente | Filament 5 demande 8.2+ |
+| Vite | 8.3.4 | `npm run build` réussit |
+| Tailwind CSS | 4.3.3 | Filament 5 demande 4.1+ |
+| laravel-vite-plugin | 3.2.0 | Télécharge les polices à la compilation et les sert depuis `public/build` |
+| Node | 24.13.0 | Suffisant pour Vite 8 et Tailwind 4 |
+
+### Stratégie du panneau
+
+- **Panneau distinct du parcours mobile :** un panel Filament `admin`, sans lien avec `/api/v1`.
+  Son chemin d'accès est à valider (voir ci-dessous).
+- **Authentification séparée :** guard `admin` et table `admins` (décision 0005, Phase 2).
+  En Phase 1 le panel est installé sans écran d'authentification métier.
+- **Fidélité aux maquettes :** les variables `--av-*` des maquettes extraites
+  (`docs/references/extracted/`) deviennent la source des couleurs, rayons et ombres du thème.
+  Les écrans Connexion et Activation des maquettes ont une mise en page propre : ils seront
+  réalisés comme pages personnalisées, pas comme l'écran de connexion par défaut de Filament.
+- **Thèmes clair et sombre :** les maquettes définissent les deux par `data-theme` et mémorisent le
+  choix sous la clé `av.theme`. Filament gère son propre mode sombre (classe `dark`) : le thème
+  personnalisé doit faire correspondre les deux jeux de variables.
+- **Compilation locale :** thème créé par `php artisan make:filament-theme`, compilé par Vite,
+  enregistré par `->viteTheme()`.
+- **Polices et ressources externes :** aucune ressource chargée depuis un CDN à l'exécution.
+  Nunito et Noto Sans (Brief Design) sont servies localement ; Filament est configuré avec
+  `LocalFontProvider` au lieu de Bunny Fonts. `vite.config.js` déclare encore la police par défaut
+  de Laravel (Instrument Sans), à remplacer.
+- **Icônes :** les maquettes utilisent Lucide ; Filament fournit Heroicons par défaut. Le choix du jeu
+  d'icônes du back-office est à valider.
+- **Rôles, permissions, audit, 2FA :** rien n'est installé en Phase 1. Le panel est structuré pour les
+  recevoir (décisions 0005 et 0006) : Policies par ressource, `multiFactorAuthentication(..., isRequired: true)`.
+
+### Points à valider avant l'installation
+
+1. Chemin du panneau (`/admin` par défaut dans Filament ; le dossier ne le fixe pas).
+2. Jeu d'icônes : Lucide comme dans les maquettes (dépendance supplémentaire) ou Heroicons.
+3. Origine des fichiers de polices : ceux des maquettes extraites, ou téléchargement à la compilation.
