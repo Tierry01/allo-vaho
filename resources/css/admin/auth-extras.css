@@ -1,0 +1,163 @@
+/*
+ * Allo Vaho — compléments aux pages d'authentification.
+ *
+ * Éléments absents des maquettes validées, construits avec leurs tokens et
+ * dans leur direction visuelle : case « Se souvenir de moi » et écran
+ * d'enrôlement de la double authentification.
+ */
+
+/* ---------- Se souvenir de moi ---------- */
+.av-auth-remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--av-text-muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.av-auth-remember input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  flex: none;
+  accent-color: var(--av-link);
+  cursor: pointer;
+}
+
+.av-auth-remember:hover {
+  color: var(--av-text);
+}
+
+/* ---------- Enrôlement de la double authentification ---------- */
+.av-auth-setup {
+  display: grid;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.av-auth-setup__steps {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: av-setup;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--av-text-muted);
+}
+
+.av-auth-setup__steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  counter-increment: av-setup;
+}
+
+.av-auth-setup__steps li::before {
+  content: counter(av-setup);
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--av-blue-50);
+  color: var(--av-link);
+  font-family: var(--av-font-head);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.av-auth-setup__steps strong {
+  color: var(--av-text);
+  font-weight: 600;
+}
+
+.av-auth-setup__box {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--av-surface-2);
+  border: 1px solid var(--av-border);
+}
+
+/* Le QR code reste noir sur blanc dans les deux thèmes, pour rester lisible par l'appareil photo. */
+.av-auth-setup__qr {
+  width: 132px;
+  height: 132px;
+  padding: 8px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--av-border);
+}
+
+.av-auth-setup__qr img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.av-auth-setup__manual {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.av-auth-setup__manual-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--av-text-subtle);
+}
+
+.av-auth-setup__key {
+  font-family: var(--av-font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  color: var(--av-text);
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+.av-auth-setup__manual-hint {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--av-text-subtle);
+}
+
+@media (max-width: 480px) {
+  .av-auth-setup__box {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+  }
+}
+
+/* ---------- Indicateur de focus (décision 0008) ---------- */
+/* Halo de la maquette + liseré --av-link, pour atteindre 3:1 de contraste. */
+.av-auth-page :focus-visible {
+  outline: 2px solid var(--av-link);
+  outline-offset: 3px;
+}
+
+/* Champs, cases du code et panneau de marque portent déjà leur propre indicateur. */
+.av-auth-page .av-auth-input:focus-visible,
+.av-auth-page .av-otp__box:focus-visible {
+  outline: none;
+}
+
+.av-auth-page .av-auth-control:has(.av-auth-input:focus-visible),
+.av-auth-page .av-otp__box:focus-visible {
+  outline: 2px solid var(--av-link);
+  outline-offset: 3px;
+}

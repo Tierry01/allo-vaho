@@ -9,6 +9,8 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/css/admin/fonts.css',
+                'resources/css/admin/auth-app.css',
+                'resources/js/admin/auth.js',
                 'resources/css/filament/admin/theme.css',
             ],
             refresh: true,

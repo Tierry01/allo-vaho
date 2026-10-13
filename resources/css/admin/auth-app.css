@@ -1,0 +1,10 @@
+/*
+ * Allo Vaho — feuille des pages d'authentification du back-office.
+ *
+ * Ces pages n'utilisent pas l'interface de Filament : elles reprennent les
+ * maquettes validées (tokens, base et auth), plus quelques compléments.
+ */
+@import './tokens.css';
+@import './base.css';
+@import './auth.css';
+@import './auth-extras.css';

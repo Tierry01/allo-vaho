@@ -5,6 +5,8 @@ namespace App\Domain\Admin\Models;
 use App\Domain\Admin\Enums\AdminRole;
 use App\Domain\Admin\Enums\AdminStatus;
 use Database\Factories\AdminFactory;
+use Filament\Auth\MultiFactor\App\Concerns\InteractsWithAppAuthentication;
+use Filament\Auth\MultiFactor\App\Contracts\HasAppAuthentication;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -24,10 +26,10 @@ use Spatie\Permission\Traits\HasRoles;
  */
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token', 'app_authentication_secret'])]
-class Admin extends Authenticatable implements FilamentUser
+class Admin extends Authenticatable implements FilamentUser, HasAppAuthentication
 {
     /** @use HasFactory<AdminFactory> */
-    use HasFactory, HasRoles, HasUlids, Notifiable, SoftDeletes;
+    use HasFactory, HasRoles, HasUlids, InteractsWithAppAuthentication, Notifiable, SoftDeletes;
 
     /**
      * Guard the roles of an administrator belong to.

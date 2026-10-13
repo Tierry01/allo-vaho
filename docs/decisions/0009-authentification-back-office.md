@@ -108,3 +108,66 @@ sur toute autre base. Chaque test s'exécute dans une transaction annulée ; `mi
 5. Mot de passe oublié et réinitialisation.
 6. Audit et durcissement.
 7. Vérification visuelle et documentation.
+
+Ordre revu le 13/10/2026 : la connexion et le TOTP obligatoire sont réalisés ensemble, avant l'invitation,
+pour qu'aucun compte réel ne puisse exister tant que la double authentification n'est pas imposée.
+
+## Connexion et TOTP — réalisé le 13/10/2026
+
+### Parcours
+
+1. Identifiants. Aucune session n'est ouverte à ce stade.
+2. Compte déjà enrôlé : le code TOTP est exigé ; la session n'est ouverte qu'après un code valide.
+3. Compte non enrôlé : la session est ouverte, mais toute page protégée renvoie vers l'enrôlement.
+   Le secret n'est enregistré qu'après un premier code valide.
+
+Le mot de passe seul ne donne donc jamais accès au panneau.
+
+### Écrans
+
+Les cinq écrans (identifiants, vérification, enrôlement, mot de passe oublié, nouveau mot de passe) n'utilisent
+pas l'interface de Filament. Ils reprennent le balisage, les icônes et la feuille « Authentification » des
+maquettes validées (`resources/css/admin/auth.css`, copie conforme). La logique reste celle de Filament et de Laravel.
+
+| Élément | Fichier |
+|---|---|
+| Mise en page commune | `resources/views/layouts/admin-auth.blade.php` |
+| Pages | `app/Filament/Auth/Pages/` et `resources/views/filament/auth/` |
+| Composants | `resources/views/components/auth/` |
+| Compléments hors maquette | `resources/css/admin/auth-extras.css` |
+| Comportements (thème, mot de passe, code) | `resources/js/admin/auth.js` |
+| Liens de support, de confidentialité et version | `config/admin.php` — masqués tant qu'ils ne sont pas configurés |
+
+### Adaptations de la maquette
+
+- Étape 2 : texte adapté au TOTP ; compte à rebours et changement de mode retirés ; aide « Contactez un Super Admin ».
+- Enrôlement : écran sans maquette, dérivé de la carte de l'étape 2.
+- Nouveau mot de passe : écran sans maquette, dérivé du formulaire d'Activation ; un seul critère affiché (8 caractères).
+- « Se souvenir de moi » : ajouté, absent de la maquette.
+- Bouton « Démo » : non reproduit.
+- Écran « Connexion réussie » : non reproduit, la redirection est immédiate.
+- « Tentatives restantes » : non affiché ; la limitation s'applique sans décompte visible.
+
+### Limitation des tentatives
+
+| Action | Limite |
+|---|---|
+| Identifiants | 5 par minute |
+| Code TOTP à la connexion | 5, puis attente |
+| Code TOTP à l'enrôlement | 5 par minute |
+| Demande de réinitialisation | 2 par minute, et un lien par adresse et par minute |
+| Nouveau mot de passe | 2 par minute |
+
+Aucune de ces limites ne verrouille un compte.
+
+### Points d'attention
+
+- **« Se souvenir de moi »** (décision du 13/10/2026) ne mémorise que l'adresse e-mail, dans le navigateur
+  (`localStorage`, clé `av.admin.email`). Ce n'est pas un champ du formulaire d'authentification : le serveur
+  ne demande jamais de connexion persistante, n'émet aucun cookie de rappel et ne renseigne pas `remember_token`.
+  La session expire donc toujours après inactivité, et le mot de passe comme le code restent demandés.
+  Vérifié dans Chrome : seuls les cookies de session et anti-CSRF sont émis.
+- **Pilote d'e-mail `log` :** en développement, le contenu des e-mails, lien de réinitialisation compris, est écrit
+  dans le journal par ce pilote. C'est son fonctionnement ; ce ne sera plus le cas avec un SMTP.
+- Le mot de passe saisi reste dans l'état de la page pendant l'étape 2, comme dans Filament : la connexion
+  revalide les identifiants après le code.

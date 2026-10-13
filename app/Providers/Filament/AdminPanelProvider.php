@@ -2,7 +2,12 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Auth\Pages\Login;
+use App\Filament\Auth\Pages\RequestPasswordReset;
+use App\Filament\Auth\Pages\ResetPassword;
+use App\Filament\Auth\Pages\SetUpTwoFactor;
 use App\Filament\AvatarProviders\InitialsAvatarProvider;
+use Filament\Auth\MultiFactor\App\AppAuthentication;
 use Filament\FontProviders\LocalFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -33,7 +38,17 @@ class AdminPanelProvider extends PanelProvider
             // unrelated to mobile users (decision 0009).
             ->authGuard('admin')
             ->authPasswordBroker('admins')
-            ->login()
+            // Custom screens reproducing the validated mockups; the logic stays Filament's.
+            ->login(Login::class)
+            ->passwordReset(RequestPasswordReset::class, ResetPassword::class)
+            // TOTP is mandatory: the second factor is checked before a session is
+            // opened, and no protected page is reachable until enrolment is done.
+            // Window of 1 step: codes are accepted within about 30 seconds (decision 0009).
+            ->multiFactorAuthentication(
+                [AppAuthentication::make()->codeWindow(1)->brandName('Allo Vaho')],
+                setUpRequiredAction: SetUpTwoFactor::class,
+                isRequired: true,
+            )
             ->brandName('Allo Vaho')
             ->brandLogo(fn (): string => asset('images/logo-allo-vaho.png'))
             ->brandLogoHeight('2.25rem')

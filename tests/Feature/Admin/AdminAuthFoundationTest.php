@@ -78,10 +78,14 @@ describe('administrator model', function () {
 });
 
 describe('panel access', function () {
-    it('lets an active administrator into the panel', function () {
-        $this->actingAs(Admin::factory()->create(), 'admin')
-            ->get('/admin')
-            ->assertOk();
+    it('lets an active administrator into the panel once two-factor authentication is set up', function () {
+        $admin = Admin::factory()->create();
+
+        $this->actingAs($admin, 'admin')->get('/admin')->assertRedirect();
+
+        $admin->saveAppAuthenticationSecret('JBSWY3DPEHPK3PXP');
+
+        $this->actingAs($admin->fresh(), 'admin')->get('/admin')->assertOk();
     });
 
     it('refuses a suspended administrator', function () {

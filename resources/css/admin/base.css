@@ -1,0 +1,30 @@
+/*
+ * Allo Vaho — base des pages autonomes du back-office (remise à zéro).
+ *
+ * Reprise telle quelle de la maquette validée. Les pages du panneau Filament
+ * n'en ont pas besoin : elles ont leur propre base.
+ */
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--av-font-body);
+  font-size: var(--av-fs-body);
+  line-height: 1.5;
+  color: var(--av-text);
+  background: var(--av-bg);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--av-dur-slow) var(--av-ease), color var(--av-dur-slow) var(--av-ease);
+}
+img, svg { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+a { color: var(--av-link); text-decoration: none; }
+a:hover { color: var(--av-link-strong); text-decoration: underline; }
+h1, h2, h3, h4, p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+table { border-collapse: collapse; }
+[hidden] { display: none !important; }
+:focus-visible { outline: none; box-shadow: var(--av-focus-ring); border-radius: var(--av-r-sm); }
