@@ -29,8 +29,10 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            // Phase 2 — Authentification replaces this default screen and the
-            // default guard with the dedicated "admin" guard (decision 0005).
+            // Administrators only: dedicated guard and password broker,
+            // unrelated to mobile users (decision 0009).
+            ->authGuard('admin')
+            ->authPasswordBroker('admins')
             ->login()
             ->brandName('Allo Vaho')
             ->brandLogo(fn (): string => asset('images/logo-allo-vaho.png'))

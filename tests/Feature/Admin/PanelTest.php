@@ -16,10 +16,10 @@ it('shows the admin sign-in screen', function () {
     $this->get('/admin/login')->assertOk();
 });
 
-it('does not let a mobile user into the admin panel', function () {
+it('does not recognise a mobile user session in the admin panel', function () {
     $this->actingAs(User::factory()->make(['id' => 1]))
         ->get('/admin')
-        ->assertForbidden();
+        ->assertRedirect('/admin/login');
 });
 
 it('loads no resource from an external host on the sign-in screen', function () {
