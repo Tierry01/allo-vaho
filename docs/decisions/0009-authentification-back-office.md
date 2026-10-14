@@ -217,7 +217,68 @@ L'e-mail d'invitation n'est jamais mis en file d'attente : un travail en file st
 La commande du premier Super Admin affiche le lien une fois dans le terminal de l'opérateur, puisqu'aucun
 e-mail réel n'est envoyé.
 
-### À décider
+### Invitations depuis le serveur
 
-- Tant que les écrans de la Phase 11 n'existent pas, seul le premier Super Admin peut être invité (par la
-  commande). Inviter d'autres administrateurs demandera soit une commande générale, soit ces écrans.
+`php artisan admin:invite <adresse> <rôle>` (décision du 14/10/2026) invite un administrateur avant les écrans de
+la Phase 11. Rôles acceptés, en minuscules : `super-admin`, `support`, `marketing`, `finance`. Mêmes règles que
+l'invitation : usage unique, 7 jours, empreinte seule, invitation précédente révoquée. Le lien est affiché une
+fois dans le terminal ; l'émission et la révocation sont journalisées sans jeton ni lien.
+
+## Audit, sessions et récupération — réalisé le 14/10/2026
+
+### Journal d'audit
+
+`spatie/laravel-activitylog` 4.12, table `activity_log` (`timestamptz`, propriétés en JSONB), journal `auth`.
+
+| Événement | Quand |
+|---|---|
+| `auth.login`, `auth.logout` | connexion complète (code vérifié), déconnexion |
+| `auth.login_failed` | identifiants refusés ; motif `unknown_account`, `invalid_credentials` ou `inactive_account` |
+| `auth.two_factor_failed` | code refusé à la connexion |
+| `auth.two_factor_enrolled` | enrôlement terminé |
+| `auth.two_factor_reset` | réinitialisation par un Super Admin, avec son motif |
+| `auth.super_admin_recovered` | récupération exceptionnelle, avec opérateur et motif |
+| `auth.password_reset_requested`, `auth.password_reset` | lien envoyé, mot de passe changé |
+| `invitation.issued`, `invitation.revoked`, `invitation.accepted` | cycle de vie des invitations |
+
+Contexte enregistré : canal (`web` ou `console`), adresse IP et navigateur pour le web, utilisateur système
+pour la console. Pour une adresse inconnue, seule une empreinte HMAC est conservée. Jamais de mot de passe,
+de code, de secret TOTP, de jeton ni de lien. Les événements des utilisateurs mobiles sont ignorés.
+La connexion met aussi à jour `admins.last_login_at`.
+
+La durée de conservation reste à décider (décision 0006) ; aucune purge n'est planifiée.
+
+### Cookie de session
+
+HTTPS uniquement par défaut hors `local` et `testing` (`App\Support\SessionCookie`), sauf si
+`SESSION_SECURE_COOKIE` le précise. `http_only`, `same_site=lax`, 120 minutes d'inactivité.
+
+### Dernier Super Admin
+
+Le dernier Super Admin actif ne peut être ni suspendu ni supprimé (règle du modèle `Admin`). La rétrogradation
+de rôle sera contrôlée avec les écrans de la Phase 11.
+
+### Réinitialisation du TOTP par un Super Admin
+
+Action `ResetAdminTwoFactor` (l'écran viendra en Phase 11) : Super Admin actif uniquement, jamais sur son propre
+compte, confirmation par son mot de passe et un code valide, motif d'au moins 10 caractères. Effets : secret de
+la cible effacé, sessions de la cible fermées, e-mail d'information, entrée d'audit. La cible se ré-enrôle à sa
+prochaine connexion.
+
+### Récupération exceptionnelle du dernier Super Admin
+
+`php artisan admin:recover-super-admin <adresse> --operator="…" --reason="…" [--reset-password]`
+
+- Refusée si un autre Super Admin actif et enrôlé peut faire la réinitialisation normale.
+- Refusée pour un compte suspendu (elle ne réactive rien).
+- Demande de retaper l'adresse du compte pour confirmer.
+- Efface le secret TOTP de ce seul compte et ferme ses sessions. Le TOTP reste obligatoire pour tous :
+  la prochaine connexion exige le mot de passe puis un nouvel enrôlement.
+- `--reset-password` émet en plus un lien de réinitialisation, affiché une fois.
+- Journalisée avec l'opérateur, le motif et l'utilisateur système.
+
+### Fermeture des sessions
+
+`AdminSessions` supprime les lignes de `sessions` de l'administrateur (pilote `database`) et renouvelle son
+`remember_token`. Sur les requêtes du back-office, `sessions.user_id` contient l'identifiant de l'administrateur ;
+les utilisateurs mobiles n'ont pas de session web.

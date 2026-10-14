@@ -2,6 +2,8 @@
 
 namespace App\Filament\Auth\Pages;
 
+use App\Domain\Admin\Events\TwoFactorChallengeFailed;
+use App\Domain\Admin\Models\Admin;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Filament\Auth\Http\Responses\Contracts\LoginResponse;
 use Filament\Auth\Pages\Login as BaseLogin;
@@ -36,7 +38,17 @@ class Login extends BaseLogin
         // remembered, so it always expires and always requires the second factor.
         unset($this->data['remember']);
 
-        return parent::authenticate();
+        $admin = $this->isVerifyingCode() ? $this->getUserUndertakingMultiFactorAuthentication() : null;
+
+        try {
+            return parent::authenticate();
+        } catch (ValidationException $exception) {
+            if ($admin instanceof Admin && array_key_exists('data.multiFactor.app.code', $exception->errors())) {
+                event(new TwoFactorChallengeFailed($admin));
+            }
+
+            throw $exception;
+        }
     }
 
     /**

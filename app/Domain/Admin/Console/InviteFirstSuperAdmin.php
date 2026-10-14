@@ -7,6 +7,7 @@ use App\Domain\Admin\Enums\AdminRole;
 use App\Domain\Admin\Exceptions\AdminAlreadyExists;
 use App\Domain\Admin\Models\Admin;
 use App\Domain\Admin\Models\AdminInvitation;
+use App\Domain\Admin\Support\AuthAudit;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,6 +23,8 @@ class InviteFirstSuperAdmin extends Command
 
     public function handle(InviteAdmin $inviteAdmin): int
     {
+        app(AuthAudit::class)->fromConsole();
+
         $email = (string) $this->argument('email');
 
         if (Validator::make(['email' => $email], ['email' => ['required', 'email']])->fails()) {

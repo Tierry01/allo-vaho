@@ -1,5 +1,6 @@
 <?php
 
+use App\Support\SessionCookie;
 use Illuminate\Support\Str;
 
 return [
@@ -169,7 +170,8 @@ return [
     |
     */
 
-    'secure' => env('SESSION_SECURE_COOKIE'),
+    // HTTPS-only outside local development and tests (decision 0009).
+    'secure' => env('SESSION_SECURE_COOKIE', SessionCookie::secureByDefault(env('APP_ENV'))),
 
     /*
     |--------------------------------------------------------------------------

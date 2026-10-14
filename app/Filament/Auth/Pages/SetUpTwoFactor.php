@@ -2,10 +2,11 @@
 
 namespace App\Filament\Auth\Pages;
 
+use App\Domain\Admin\Events\TwoFactorEnrolled;
+use App\Domain\Admin\Models\Admin;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use Filament\Auth\MultiFactor\App\AppAuthentication;
-use Filament\Auth\MultiFactor\App\Contracts\HasAppAuthentication;
 use Filament\Facades\Filament;
 use Filament\Pages\SimplePage;
 use Illuminate\Validation\ValidationException;
@@ -80,6 +81,8 @@ class SetUpTwoFactor extends SimplePage
         $this->activated = true;
 
         session()->regenerate();
+
+        event(new TwoFactorEnrolled($this->admin()));
     }
 
     public function getTitle(): string
@@ -129,11 +132,11 @@ class SetUpTwoFactor extends SimplePage
         return $provider;
     }
 
-    protected function admin(): HasAppAuthentication
+    protected function admin(): Admin
     {
         $admin = Filament::auth()->user();
 
-        if (! $admin instanceof HasAppAuthentication) {
+        if (! $admin instanceof Admin) {
             throw new LogicException('The authenticated model must support app authentication.');
         }
 

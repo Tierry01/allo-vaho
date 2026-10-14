@@ -4,6 +4,7 @@ namespace App\Domain\Admin\Models;
 
 use App\Domain\Admin\Enums\AdminRole;
 use App\Domain\Admin\Enums\AdminStatus;
+use App\Domain\Admin\Exceptions\LastSuperAdminProtected;
 use Database\Factories\AdminFactory;
 use Filament\Auth\MultiFactor\App\Concerns\InteractsWithAppAuthentication;
 use Filament\Auth\MultiFactor\App\Contracts\HasAppAuthentication;
@@ -66,6 +67,43 @@ class Admin extends Authenticatable implements FilamentUser, HasAppAuthenticatio
     public function isActive(): bool
     {
         return $this->status === AdminStatus::Active && ! $this->trashed();
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRole(AdminRole::SuperAdmin->value, AdminRole::GUARD);
+    }
+
+    /**
+     * Whether no other active Super Admin exists besides this one.
+     */
+    public function isLastActiveSuperAdmin(): bool
+    {
+        return $this->isSuperAdmin() && ! static::query()
+            ->role(AdminRole::SuperAdmin->value, AdminRole::GUARD)
+            ->where('status', AdminStatus::Active->value)
+            ->whereKeyNot($this->getKey())
+            ->exists();
+    }
+
+    protected static function booted(): void
+    {
+        // The back-office must always keep an active Super Admin.
+        static::updating(function (self $admin): void {
+            $suspending = $admin->isDirty('status') && $admin->status !== AdminStatus::Active
+                && $admin->getOriginal('status') === AdminStatus::Active;
+
+            if ($suspending && $admin->isLastActiveSuperAdmin()) {
+                throw new LastSuperAdminProtected;
+            }
+        });
+
+        static::deleting(function (self $admin): void {
+            // The stored status counts, not an unsaved change made in memory.
+            if ($admin->getOriginal('status') === AdminStatus::Active && $admin->isLastActiveSuperAdmin()) {
+                throw new LastSuperAdminProtected;
+            }
+        });
     }
 
     /**

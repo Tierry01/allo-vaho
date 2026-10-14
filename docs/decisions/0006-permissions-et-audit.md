@@ -1,7 +1,8 @@
 # 0006 — Permissions et journal d'activité du back-office
 
-- **Statut :** **recommandation — en attente de validation. Rien n'est installé.**
-  Les écrans de gestion appartiennent à la Phase 11 — Administration.
+- **Statut :** retenue pendant la Phase 2 (décision 0009). `spatie/laravel-permission` 8.3 porte les quatre rôles,
+  sans aucune permission ; `spatie/laravel-activitylog` 4.12 porte le journal `auth`. Ni Shield ni plugin d'écran.
+  La matrice des permissions, les écrans et la durée de conservation du journal restent à décider (Phase 11).
 - **Écart :** aucun. Les deux paquets retenus sont ceux que le Dossier technique v1.3 nomme (§ 4).
 
 ## Besoin

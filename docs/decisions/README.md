@@ -11,7 +11,7 @@ fonctionnelle ; seules les dérogations listées ici sont autorisées.
 | [0003](0003-otp-provisoire-postgresql.md) | OTP provisoire sur cache PostgreSQL | Validée dans son principe — non implémentée | Oui (v1.3 : Redis) |
 | [0004](0004-contrat-openapi.md) | Contrat OpenAPI défini en amont | En place — serveur de mock reporté | Partiel (v1.3 : doc générée par Scribe) |
 | [0005](0005-authentification-administrateur.md) | Table `admins` et guard dédié | Orientation validée — conception à valider | Non (silence du dossier) |
-| [0006](0006-permissions-et-audit.md) | Permissions et journal d'activité | **Recommandation — en attente de validation** | Non |
+| [0006](0006-permissions-et-audit.md) | Permissions et journal d'activité | Rôles et audit en place (Phase 2) ; matrice et écrans en Phase 11 | Non |
 | [0007](0007-questions-ouvertes-identite.md) | Questions ouvertes : identité et table `users` | **Questions en attente de décision métier** | — |
 | [0008](0008-design-system.md) | Design system : polices, icônes, ressources externes | Validée le 12/10/2026 | Non |
-| [0009](0009-authentification-back-office.md) | Phase 2 : authentification du back-office | Plan approuvé le 13/10/2026 — socle, connexion, TOTP, invitation et activation réalisés | Non |
+| [0009](0009-authentification-back-office.md) | Phase 2 : authentification du back-office | Plan approuvé le 13/10/2026 — réalisée, vérifications finales en cours | Non |
