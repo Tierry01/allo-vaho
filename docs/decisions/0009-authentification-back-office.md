@@ -145,8 +145,12 @@ maquettes validées (`resources/css/admin/auth.css`, copie conforme). La logique
 - Nouveau mot de passe : écran sans maquette, dérivé du formulaire d'Activation ; un seul critère affiché (8 caractères).
 - « Se souvenir de moi » : ajouté, absent de la maquette.
 - Bouton « Démo » : non reproduit.
-- Écran « Connexion réussie » : non reproduit, la redirection est immédiate.
-- « Tentatives restantes » : non affiché ; la limitation s'applique sans décompte visible.
+- Écran « Connexion réussie » : reproduit (14/10/2026) après la vérification du code, puis redirection après
+  1,2 seconde. Un compte qui doit encore s'enrôler est envoyé directement vers l'enrôlement.
+- « Tentatives restantes » : affiché à l'étape 2 (14/10/2026), comme dans la maquette. À l'étape 1, aucun
+  décompte, comme dans la maquette. Le « code technique » du message de la maquette n'est pas affiché tant
+  que le format des codes d'erreur n'est pas décidé.
+- Pied de page : il garde sa hauteur même quand ses liens sont masqués, pour ne pas décaler la carte.
 
 ### Limitation des tentatives
 
@@ -200,6 +204,12 @@ L'acceptation verrouille la ligne de l'invitation (`SELECT … FOR UPDATE`) dans
 utilisations simultanées du même lien s'attendent, et la seconde trouve l'invitation déjà acceptée.
 L'unicité de l'adresse dans `admins` est une seconde barrière.
 
+Vérifié le 14/10/2026 avec deux processus PHP indépendants, chacun avec sa propre connexion à
+`allo_vaho_test` (`tests/Feature/Admin/AdminInvitationConcurrencyTest.php`) : départ au même instant, puis
+premier processus gardant le verrou 1,5 seconde. Dans les deux cas, une seule acceptation réussit et l'autre
+voit « déjà utilisée » ; dans le second, elle attend le verrou. Contrôle négatif : sans le verrou, les deux
+processus passent la vérification et seul l'index unique empêche un second compte.
+
 ### Écrans
 
 La page reproduit la maquette « Activation » : panneau de marque en variante invitation, carte de
@@ -246,7 +256,8 @@ pour la console. Pour une adresse inconnue, seule une empreinte HMAC est conserv
 de code, de secret TOTP, de jeton ni de lien. Les événements des utilisateurs mobiles sont ignorés.
 La connexion met aussi à jour `admins.last_login_at`.
 
-La durée de conservation reste à décider (décision 0006) ; aucune purge n'est planifiée.
+La durée de conservation reste à décider : voir la proposition [0010](0010-conservation-journal-audit.md).
+Aucune purge n'est planifiée.
 
 ### Cookie de session
 

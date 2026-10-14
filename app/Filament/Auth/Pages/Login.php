@@ -7,11 +7,14 @@ use App\Domain\Admin\Models\Admin;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Filament\Auth\Http\Responses\Contracts\LoginResponse;
 use Filament\Auth\Pages\Login as BaseLogin;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Components\Component;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Locked;
 
 /**
  * Back-office sign-in. The authentication logic is Filament's (rate limiting,
@@ -29,6 +32,13 @@ class Login extends BaseLogin
      */
     public int $attempts = 0;
 
+    /**
+     * Set once the code is verified: the "Connexion réussie" state of the
+     * mockup is shown, then the browser goes to this address.
+     */
+    #[Locked]
+    public ?string $signedInUrl = null;
+
     public function authenticate(): ?LoginResponse
     {
         $this->attempts++;
@@ -41,7 +51,18 @@ class Login extends BaseLogin
         $admin = $this->isVerifyingCode() ? $this->getUserUndertakingMultiFactorAuthentication() : null;
 
         try {
-            return parent::authenticate();
+            $response = parent::authenticate();
+
+            // Fully signed in after the code: show the success state. An account that
+            // still has to enrol is sent straight on, to the mandatory enrolment.
+            if ($response && $admin instanceof Admin && Filament::auth()->check()) {
+                $this->signedInUrl = session()->pull('url.intended', Filament::getUrl());
+                $this->data['password'] = '';
+
+                return null;
+            }
+
+            return $response;
         } catch (ValidationException $exception) {
             if ($admin instanceof Admin && array_key_exists('data.multiFactor.app.code', $exception->errors())) {
                 event(new TwoFactorChallengeFailed($admin));
@@ -72,6 +93,24 @@ class Login extends BaseLogin
         $this->data['password'] = '';
         $this->data['multiFactor'] = [];
         $this->resetErrorBag();
+    }
+
+    /**
+     * Code attempts left before the challenge is rate limited. Only shown at
+     * the second step, once the password has been proved: it reveals nothing
+     * about the account that the person does not already know.
+     */
+    public function remainingCodeAttempts(): ?int
+    {
+        $admin = $this->getUserUndertakingMultiFactorAuthentication();
+
+        if (! $admin) {
+            return null;
+        }
+
+        $challenge = $this->getMultiFactorChallenge();
+
+        return max(0, RateLimiter::remaining('filament-multi-factor-challenge:'.Filament::getUserScopedAuthIdentifier($admin), $challenge->getMaxRateLimiterAttempts()));
     }
 
     public function isVerifyingCode(): bool

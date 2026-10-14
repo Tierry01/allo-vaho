@@ -15,3 +15,4 @@ fonctionnelle ; seules les dérogations listées ici sont autorisées.
 | [0007](0007-questions-ouvertes-identite.md) | Questions ouvertes : identité et table `users` | **Questions en attente de décision métier** | — |
 | [0008](0008-design-system.md) | Design system : polices, icônes, ressources externes | Validée le 12/10/2026 | Non |
 | [0009](0009-authentification-back-office.md) | Phase 2 : authentification du back-office | Plan approuvé le 13/10/2026 — réalisée, vérifications finales en cours | Non |
+| [0010](0010-conservation-journal-audit.md) | Conservation du journal d'audit | **Proposition — en attente de décision métier** | Non |

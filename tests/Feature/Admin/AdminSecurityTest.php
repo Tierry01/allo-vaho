@@ -86,12 +86,16 @@ describe('audit trail', function () {
             ->call('authenticate')->set('data.multiFactor.app.code', '000000')->call('authenticate')
             ->set('data.multiFactor.app.code', securityCode($admin))->call('authenticate')->assertHasNoErrors();
 
-        $reasons = Activity::query()->where('event', 'auth.login_failed')->orderBy('id')->get()->map(fn (Activity $a) => $a->properties['reason'])->all();
+        // Ordered by id: without an ORDER BY, PostgreSQL may return the failures in any order.
+        $failures = Activity::query()->where('event', 'auth.login_failed')->orderBy('id')->get();
+        $reasons = $failures->map(fn (Activity $a) => $a->properties['reason'])->all();
+        $fingerprints = $failures->map(fn (Activity $a) => $a->properties['email_fingerprint'])->all();
 
         expect(auditEvents())->toContain('auth.login_failed', 'auth.two_factor_failed', 'auth.login')
             ->and($reasons)->toBe(['unknown_account', 'invalid_credentials', 'inactive_account'])
             ->and(Activity::query()->where('event', 'auth.login')->first()->causer_id)->toBe($admin->id)
-            ->and(Activity::query()->where('event', 'auth.login_failed')->first()->properties['email_fingerprint'])->toHaveLength(64)
+            ->and($fingerprints[0])->toHaveLength(64) // only an unknown address is fingerprinted
+            ->and(array_slice($fingerprints, 1))->toBe([null, null])
             ->and($admin->fresh()->last_login_at)->not->toBeNull()
             ->and(auditDump())->not->toContain(SECURITY_PASSWORD)->not->toContain('mot-de-passe-faux')->not->toContain('inconnu@example.com')
             ->not->toContain($admin->getAppAuthenticationSecret())->not->toContain('000000');

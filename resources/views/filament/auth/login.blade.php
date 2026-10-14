@@ -5,7 +5,16 @@
 @endphp
 
 <div>
-    @if (! $this->isVerifyingCode())
+    @if ($this->signedInUrl)
+        {{-- Connexion réussie, comme dans la maquette --}}
+        <div class="av-auth-view av-auth-result is-entering" wire:key="success" x-data x-init="setTimeout(() => window.location.assign(@js($this->signedInUrl)), 1200)">
+            <span class="av-auth-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+            <h1 class="av-auth-title">Connexion réussie</h1>
+            <p class="av-auth-lead" role="status">Redirection vers votre tableau de bord…</p>
+            <div class="av-auth-progress" aria-hidden="true"><span></span></div>
+            <a class="av-auth-link" href="{{ $this->signedInUrl }}">Continuer maintenant</a>
+        </div>
+    @elseif (! $this->isVerifyingCode())
         {{-- Étape 1 : identifiants --}}
         <div class="av-auth-view is-entering" wire:key="credentials">
             <div class="av-auth-step"><span class="av-auth-step__bars" aria-hidden="true"><span class="is-active"></span><span></span></span>Étape 1 sur 2 · Identifiants</div>
@@ -76,7 +85,12 @@
                 @elseif ($codeError && strlen($submittedCode) < 6)
                     <x-auth.message type="error" title="Entrez les 6 chiffres du code." />
                 @elseif ($codeError)
-                    <x-auth.message type="error" title="Ce code est incorrect." text="Vérifiez-le et réessayez avec le code affiché actuellement." />
+                    @php($remaining = $this->remainingCodeAttempts())
+                    <x-auth.message type="error" title="Ce code est incorrect." :text="match (true) {
+                        $remaining === null => 'Vérifiez-le et réessayez.',
+                        $remaining === 0 => 'Vérifiez-le et réessayez dans une minute.',
+                        default => 'Vérifiez-le et réessayez. '.$remaining.' '.($remaining > 1 ? 'tentatives restantes' : 'tentative restante').'.',
+                    }" />
                 @endif
 
                 <fieldset class="av-auth-field">

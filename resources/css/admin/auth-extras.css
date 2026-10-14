@@ -166,3 +166,9 @@
 [x-cloak] {
   display: none !important;
 }
+
+/* Le pied de page garde la hauteur de la maquette même quand ses liens ne sont pas configurés :
+   sinon la carte, centrée verticalement, se décale. */
+.av-auth-footer {
+  min-height: 32px;
+}

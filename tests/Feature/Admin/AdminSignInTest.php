@@ -153,7 +153,8 @@ describe('verification code', function () {
             ->set('data.multiFactor.app.code', totpCode($admin))
             ->call('authenticate')
             ->assertHasNoErrors()
-            ->assertRedirect(Filament::getUrl());
+            ->assertSet('signedInUrl', Filament::getUrl())
+            ->assertSee('Connexion réussie');
 
         expect(Auth::guard('admin')->id())->toBe($admin->id);
     });
@@ -220,6 +221,42 @@ describe('verification code', function () {
         $page->set('data.multiFactor.app.code', totpCode($admin))->call('authenticate')->assertHasErrors('throttle');
 
         expect(Auth::guard('admin')->check())->toBeFalse();
+    });
+
+    it('shows how many code attempts are left, and only at the second step', function () {
+        $admin = enrolledAdmin();
+        $page = submitCredentials($admin->email);
+
+        $page->set('data.multiFactor.app.code', '000000')->call('authenticate');
+        $first = $page->instance()->remainingCodeAttempts();
+        $page->assertSee($first.' tentatives restantes');
+
+        $page->set('data.multiFactor.app.code', '000000')->call('authenticate');
+
+        expect($first)->toBeGreaterThan(0)->toBeLessThan(5)
+            ->and($page->instance()->remainingCodeAttempts())->toBe($first - 1);
+
+        submitCredentials($admin->email, 'mauvais-mot-de-passe')->assertDontSee('tentative');
+    });
+
+    it('shows the success state once the code is verified, then leaves the password out of the page', function () {
+        $admin = enrolledAdmin();
+
+        submitCredentials($admin->email)
+            ->set('data.multiFactor.app.code', totpCode($admin))
+            ->call('authenticate')
+            ->assertSee('Connexion réussie')
+            ->assertSee('Redirection vers votre tableau de bord')
+            ->assertSet('data.password', '')
+            ->assertNoRedirect();
+    });
+
+    it('sends an account that still has to enrol straight to the enrolment', function () {
+        $admin = Admin::factory()->create(['password' => SIGN_IN_PASSWORD]);
+
+        submitCredentials($admin->email)
+            ->assertRedirect(Filament::getUrl())
+            ->assertSet('signedInUrl', null);
     });
 
     it('goes back to the credentials without keeping the password', function () {
@@ -391,7 +428,8 @@ describe('remember me and session', function () {
             ->set('data.multiFactor.app.code', totpCode($admin))
             ->call('authenticate')
             ->assertHasNoErrors()
-            ->assertRedirect(Filament::getUrl());
+            ->assertSet('signedInUrl', Filament::getUrl())
+            ->assertSee('Connexion réussie');
 
         $recallerCookies = collect(Cookie::getQueuedCookies())
             ->filter(fn ($cookie): bool => str_starts_with($cookie->getName(), 'remember_'));
