@@ -171,3 +171,53 @@ Aucune de ces limites ne verrouille un compte.
   dans le journal par ce pilote. C'est son fonctionnement ; ce ne sera plus le cas avec un SMTP.
 - Le mot de passe saisi reste dans l'état de la page pendant l'étape 2, comme dans Filament : la connexion
   revalide les identifiants après le code.
+
+## Invitation et activation — réalisé le 13/10/2026
+
+### Règles
+
+- Le jeton fait 256 bits aléatoires (64 caractères hexadécimaux). Seule son empreinte SHA-256 est stockée.
+- Une invitation est valable 7 jours, utilisable une fois, et révocable tant qu'elle n'est pas acceptée.
+- Émettre une nouvelle invitation pour une adresse révoque la précédente : un seul lien fonctionne.
+- L'adresse e-mail et le rôle viennent de l'invitation, jamais de la requête.
+- Une adresse qui a déjà un compte, même supprimé, ne peut pas être invitée.
+- L'activation crée le compte sans le connecter et sans secret TOTP : la première connexion passe par l'enrôlement.
+- Il n'existe aucune route d'inscription libre.
+
+### Code
+
+| Élément | Fichier |
+|---|---|
+| Émettre, révoquer, accepter | `app/Domain/Admin/Actions/` |
+| Événements (sans jeton) | `app/Domain/Admin/Events/` |
+| E-mail d'invitation, demande de renouvellement | `app/Domain/Admin/Notifications/` |
+| Premier Super Admin | `php artisan admin:invite-first-super-admin <adresse>` |
+| Page d'activation | `app/Filament/Auth/Pages/AcceptInvitation.php`, route `/admin/activation/{jeton}` |
+
+### Usage concurrent
+
+L'acceptation verrouille la ligne de l'invitation (`SELECT … FOR UPDATE`) dans une transaction : deux
+utilisations simultanées du même lien s'attendent, et la seconde trouve l'invitation déjà acceptée.
+L'unicité de l'adresse dans `admins` est une seconde barrière.
+
+### Écrans
+
+La page reproduit la maquette « Activation » : panneau de marque en variante invitation, carte de
+l'invitant, encadré « Défini par votre invitation », formulaire, puis les états réussie, expirée, invalide
+et déjà utilisée. Une invitation révoquée affiche l'écran « lien invalide », sans rien révéler.
+
+Adaptations : un seul critère de mot de passe affiché (8 caractères) ; la phrase de l'écran de réussite
+annonce la configuration de la vérification en deux étapes à la première connexion ; les liens de
+support sont masqués tant qu'ils ne sont pas configurés ; pas d'écran intermédiaire « Vérification de
+votre invitation… », le serveur répond directement.
+
+### E-mails
+
+L'e-mail d'invitation n'est jamais mis en file d'attente : un travail en file stockerait le jeton en clair.
+La commande du premier Super Admin affiche le lien une fois dans le terminal de l'opérateur, puisqu'aucun
+e-mail réel n'est envoyé.
+
+### À décider
+
+- Tant que les écrans de la Phase 11 n'existent pas, seul le premier Super Admin peut être invité (par la
+  commande). Inviter d'autres administrateurs demandera soit une commande générale, soit ces écrans.

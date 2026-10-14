@@ -3,11 +3,14 @@
 namespace App\Domain\Admin\Models;
 
 use App\Domain\Admin\Enums\AdminRole;
+use App\Domain\Admin\Enums\InvitationState;
+use App\Domain\Admin\Support\InvitationToken;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use SensitiveParameter;
 
 /**
  * A personal, single-use invitation to create an administrator account.
@@ -21,6 +24,28 @@ class AdminInvitation extends Model
      * Number of days an invitation stays valid.
      */
     public const VALIDITY_DAYS = 7;
+
+    /**
+     * Find the invitation a link points to, from the token it carries.
+     */
+    public static function findByToken(#[SensitiveParameter] string $token, bool $lock = false): ?self
+    {
+        return static::query()
+            ->where('token_hash', InvitationToken::hash($token))
+            ->when($lock, fn (Builder $query) => $query->lockForUpdate())
+            ->first();
+    }
+
+    public static function stateOf(?self $invitation): InvitationState
+    {
+        return match (true) {
+            $invitation === null => InvitationState::Invalid,
+            $invitation->isAccepted() => InvitationState::Accepted,
+            $invitation->isRevoked() => InvitationState::Revoked,
+            $invitation->isExpired() => InvitationState::Expired,
+            default => InvitationState::Usable,
+        };
+    }
 
     /**
      * @return BelongsTo<Admin, $this>

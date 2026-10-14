@@ -161,3 +161,8 @@
   outline: 2px solid var(--av-link);
   outline-offset: 3px;
 }
+
+/* Éléments pilotés par Alpine : masqués tant que le script ne les a pas initialisés. */
+[x-cloak] {
+  display: none !important;
+}

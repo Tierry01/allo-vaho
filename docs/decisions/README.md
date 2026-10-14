@@ -14,4 +14,4 @@ fonctionnelle ; seules les dérogations listées ici sont autorisées.
 | [0006](0006-permissions-et-audit.md) | Permissions et journal d'activité | **Recommandation — en attente de validation** | Non |
 | [0007](0007-questions-ouvertes-identite.md) | Questions ouvertes : identité et table `users` | **Questions en attente de décision métier** | — |
 | [0008](0008-design-system.md) | Design system : polices, icônes, ressources externes | Validée le 12/10/2026 | Non |
-| [0009](0009-authentification-back-office.md) | Phase 2 : authentification du back-office | Plan approuvé le 13/10/2026 — socle, connexion et TOTP réalisés | Non |
+| [0009](0009-authentification-back-office.md) | Phase 2 : authentification du back-office | Plan approuvé le 13/10/2026 — socle, connexion, TOTP, invitation et activation réalisés | Non |

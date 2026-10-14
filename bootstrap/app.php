@@ -12,6 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+    // Console commands live with their domain (app/Domain/<Domain>/Console).
+    ->withCommands([
+        __DIR__.'/../app/Domain/Admin/Console',
+    ])
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->throttleApi();
     })

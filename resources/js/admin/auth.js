@@ -221,7 +221,12 @@ window.avOtp = ({ onChange = () => {}, onComplete = () => {} } = {}) => ({
    x-data="avStrength({ min: 8 })" sur .av-strength, avec x-model sur le champ. */
 window.avStrength = ({ min = 8 } = {}) => ({
     password: '',
+    confirmation: '',
     labels: ['—', 'Faible', 'Moyen', 'Bon', 'Excellent'],
+
+    get matches() {
+        return this.confirmation.length > 0 && this.confirmation === this.password;
+    },
 
     get longEnough() {
         return this.password.length >= min;

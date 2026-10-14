@@ -1,6 +1,16 @@
 @php
     $title ??= null;
     $cardLabel ??= 'Connexion';
+    $brand = [
+        'variant' => null,
+        'label' => 'Présentation du back-office',
+        'eyebrow' => 'Back-office Allo Vaho',
+        'title' => ['Tout Allo Vaho,', 'au même endroit.'],
+        'text' => 'Abonnements, activations Camtel, paiements et support : l’espace de travail de vos équipes.',
+        'pillars' => true,
+        'card' => null,
+        ...(isset($brand) ? ['pillars' => false, ...$brand] : []),
+    ];
     $supportEmail = config('admin.support_email');
     $privacyUrl = config('admin.privacy_url');
     $version = config('admin.version');
@@ -38,7 +48,7 @@
         <x-auth.sprite />
 
         <div class="av-auth-shell">
-            <aside class="av-auth-brand" aria-label="Présentation du back-office">
+            <aside @class(['av-auth-brand', 'av-auth-brand--'.$brand['variant'] => filled($brand['variant'] ?? null)]) aria-label="{{ $brand['label'] }}">
                 <div class="av-auth-brand__panel">
                     <svg class="av-auth-brand__art" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
                         <circle class="av-art-ring" cx="300" cy="290" r="258"></circle>
@@ -49,15 +59,30 @@
                         <circle class="av-art-accent" cx="468" cy="132" r="30"></circle>
                     </svg>
                     <div class="av-auth-brand__content">
-                        <p class="av-auth-brand__eyebrow"><span class="av-auth-brand__dot"></span>Back-office Allo Vaho</p>
-                        <p class="av-auth-brand__title">Tout Allo Vaho,<br>au même endroit.</p>
-                        <p class="av-auth-brand__text">Abonnements, activations Camtel, paiements et support : l’espace de travail de vos équipes.</p>
-                        <ul class="av-auth-brand__pillars">
-                            <li><x-auth.icon name="shield" />Double authentification</li>
-                            <li><x-auth.icon name="badge" />Accès selon le rôle</li>
-                            <li><x-auth.icon name="scroll" />Actions journalisées</li>
-                        </ul>
+                        <p class="av-auth-brand__eyebrow"><span class="av-auth-brand__dot"></span>{{ $brand['eyebrow'] }}</p>
+                        <p class="av-auth-brand__title">{{ $brand['title'][0] }}<br>{{ $brand['title'][1] }}</p>
+                        <p class="av-auth-brand__text">{{ $brand['text'] }}</p>
+                        @if ($brand['pillars'] ?? false)
+                            <ul class="av-auth-brand__pillars">
+                                <li><x-auth.icon name="shield" />Double authentification</li>
+                                <li><x-auth.icon name="badge" />Accès selon le rôle</li>
+                                <li><x-auth.icon name="scroll" />Actions journalisées</li>
+                            </ul>
+                        @endif
                     </div>
+                    @if ($card = $brand['card'] ?? null)
+                        <div class="av-invite-card">
+                            <div class="av-invite-card__head">
+                                <span class="av-auth-avatar" aria-hidden="true">{{ $card['initials'] }}</span>
+                                <div><div class="av-invite-card__name">{{ $card['name'] }}</div><div class="av-invite-card__sub">{{ $card['sub'] }}</div></div>
+                            </div>
+                            <dl class="av-invite-card__list">
+                                <div><dt>Accès</dt><dd>{{ $card['role'] }}</dd></div>
+                                <div><dt>Valable jusqu’au</dt><dd>{{ $card['validUntil'] }}</dd></div>
+                            </dl>
+                            <p class="av-invite-card__foot"><x-auth.icon name="lock" />Lien personnel · usage unique</p>
+                        </div>
+                    @endif
                 </div>
             </aside>
 
